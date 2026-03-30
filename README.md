@@ -5,19 +5,30 @@ Stop wasting time debating which libraries to use, wrestling with outdated boile
 ## Quick start
 
 ```bash
-pnpm create cutting-edge-nextjs-app
+pnpm create cutting-edge-nextjs-app@latest
 # or
-npx create-cutting-edge-nextjs-app
+npx create-cutting-edge-nextjs-app@latest
+# or
+yarn create cutting-edge-nextjs-app
+# or
+bunx create-cutting-edge-nextjs-app@latest
 ```
 
 > Requires Node.js 20+
 
 ## Why this template?
 
-- **Handpicked libraries** — not just popular ones, but the *right* ones. Each was chosen after evaluating the ecosystem and reading the latest docs.
-- **Human-configured** — every integration is set up correctly from the start, following current best practices rather than what an AI trained on last year's code thinks is correct.
-- **Covers real-world needs** — marketing pages with SEO, content routes, and CSR dashboard patterns. Not a toy "Hello World" but an architecture you'd actually build a product on.
-- **AI-ready from day one** — ships with explicit project structure rules (`CLAUDE.md`, `docs/project-structure.md`) so AI assistants can place code consistently and follow your conventions without constant correction.
+### 🎯 Handpicked libraries
+Not just popular ones, but the *right* ones. Each was chosen after evaluating the ecosystem and reading the latest docs.
+
+### ⚙️ Human-configured
+Every integration is set up correctly from the start, following current best practices rather than what an AI trained on last year's code thinks is correct.
+
+### 🚀 Covers real-world needs
+Marketing pages with SEO, content routes, and CSR dashboard patterns. Not a toy "Hello World" but an architecture you'd actually build a product on.
+
+### 🤖 AI-ready from day one
+Ships with explicit project structure rules (`CLAUDE.md`, `docs/project-structure.md`) so AI assistants can place code consistently and follow your conventions without constant correction.
 
 ## Tech stack
 
