@@ -62,7 +62,7 @@ Ships with explicit project structure rules (`CLAUDE.md`, `docs/project-structur
 The template uses Next.js App Router with route groups for clear boundaries:
 
 - **(marketing)** — landing page, public content with SEO
-- **(content)** — about, blog pages
+- **(content)** — product, blog pages etc
 - **(dashboard)** — CSR management UI with TanStack Query patterns
 
 Route groups are organizational only. URLs stay clean: `/`, `/about`, `/blog`, `/dashboard`.
