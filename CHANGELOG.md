@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/jade-tam/cutting-edge-nextjs-template/compare/v1.1.0...v1.1.1) (2026-03-30)
+
+
+### Bug Fixes
+
+* commit to check action ([309f865](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/309f865b842bbbfef1fff4ff7aec7886f567a318))
+
 ## [1.1.0](https://github.com/jade-tam/cutting-edge-nextjs-template/compare/v1.0.1...v1.1.0) (2026-03-30)
 
 
