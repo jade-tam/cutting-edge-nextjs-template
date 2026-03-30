@@ -1,5 +1,5 @@
 {
-  "name": "create-cutting-edge-react-app",
+  "name": "create-cutting-edge-nextjs-app",
   "version": "0.1.0",
   "description": "Scaffold a Cutting Edge React app — React Router 7, Tailwind 4, Paraglide i18n, Iconify",
   "license": "MIT",
@@ -9,7 +9,7 @@
   },
   "type": "module",
   "bin": {
-    "create-cutting-edge-react-app": "dist/index.js"
+    "create-cutting-edge-nextjs-app": "dist/index.js"
   },
   "files": [
     "dist",

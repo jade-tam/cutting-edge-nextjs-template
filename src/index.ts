@@ -38,7 +38,7 @@ async function main() {
   const argProjectName = process.argv[2];
 
   console.log();
-  p.intro(kleur.bgCyan().black(' create-cutting-edge-react-app '));
+  p.intro(kleur.bgCyan().black(" create-cutting-edge-nextjs-app "));
 
   // Project name
   let projectName: string;
@@ -95,7 +95,7 @@ async function main() {
   }
 
   // Copy template
-  const templateDir = path.resolve(__dirname, '../templates/cutting-edge-react');
+  const templateDir = path.resolve(__dirname, '../templates/cutting-edge-nextjs-template');
 
   const copySpinner = p.spinner();
   copySpinner.start('Copying template files...');
@@ -145,11 +145,6 @@ async function main() {
   console.log(kleur.cyan(`  cd ${projectName}`));
   console.log(kleur.cyan(`  ${pkgManager} run dev`));
   console.log();
-  console.log(
-    kleur.dim(
-      '  Note: Paraglide i18n files are auto-generated on the first dev/build run.'
-    )
-  );
   console.log();
 }
 
