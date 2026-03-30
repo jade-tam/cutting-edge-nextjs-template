@@ -1,11 +1,11 @@
 {
   "name": "create-cutting-edge-nextjs-app",
   "version": "0.1.0",
-  "description": "Scaffold a Cutting Edge React app — React Router 7, Tailwind 4, Paraglide i18n, Iconify",
+  "description": "Scaffold a Cutting Edge Nextjs app",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jade-tam/cutting-edge-react-template"
+    "url": "https://github.com/jade-tam/cutting-edge-nextjs-template"
   },
   "type": "module",
   "bin": {
