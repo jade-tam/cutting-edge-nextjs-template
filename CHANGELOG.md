@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/jade-tam/cutting-edge-nextjs-template/compare/v1.0.1...v1.1.0) (2026-03-30)
+
+
+### Features
+
+* add and configure storybook to the template ([48b5f5d](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/48b5f5d5a258241d4dbb0be6c1a1e5d29ad158d8))
+* update ignore files ([2f8d0fa](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/2f8d0fa5a522c7c9c19260606df59154c14aff62))
+
 ## [1.0.1](https://github.com/jade-tam/cutting-edge-nextjs-template/compare/v1.0.0...v1.0.1) (2026-03-30)
 
 
