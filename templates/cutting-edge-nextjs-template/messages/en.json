@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "title": "Next.js Boilerplate Template",
+    "description": "Localized Next.js App Router starter with CSR dashboard examples"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog",
+    "dashboard": "Dashboard",
+    "users": "Users"
+  },
+  "marketing": {
+    "headline": "Build faster with a clean Next.js starter",
+    "subheadline": "Includes i18n, SEO scaffolding, and CSR dashboard patterns"
+  }
+}

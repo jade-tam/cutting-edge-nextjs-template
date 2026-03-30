@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "title": "Mẫu Next.js Boilerplate",
+    "description": "Starter Next.js đa ngôn ngữ với ví dụ dashboard CSR"
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "blog": "Blog",
+    "dashboard": "Bảng điều khiển",
+    "users": "Người dùng"
+  },
+  "marketing": {
+    "headline": "Bắt đầu nhanh hơn với mẫu Next.js gọn gàng",
+    "subheadline": "Bao gồm i18n, SEO scaffolding và mẫu dashboard CSR"
+  }
+}
