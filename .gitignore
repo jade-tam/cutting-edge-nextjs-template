@@ -3,8 +3,7 @@ dist
 
 # Template artifacts (not published)
 templates/cutting-edge-nextjs-template/node_modules
-templates/cutting-edge-nextjs-template/build
-templates/cutting-edge-nextjs-template/.react-router
-templates/cutting-edge-nextjs-template/app/paraglide
-templates/cutting-edge-nextjs-template/project.inlang/cache
+templates/cutting-edge-nextjs-template/.next
+templates/cutting-edge-nextjs-template/storybook-static
+templates/cutting-edge-nextjs-template/next-env.d.ts
 templates/cutting-edge-nextjs-template/pnpm-lock.yaml
