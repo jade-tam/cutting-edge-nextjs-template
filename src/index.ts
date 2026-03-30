@@ -108,12 +108,8 @@ async function main() {
     path.join(targetDir, '.gitignore')
   );
   await rename(
-    path.join(targetDir, '_package.json'),
-    path.join(targetDir, 'package.json')
-  );
-  await rename(
-    path.join(targetDir, '_vscode'),
-    path.join(targetDir, '.vscode')
+    path.join(targetDir, "_package.json"),
+    path.join(targetDir, "package.json"),
   );
 
   // Inject project name
