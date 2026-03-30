@@ -110,6 +110,29 @@ For folder ownership, code placement, env/logger conventions, and AI contributor
 - [docs/project-structure.md](docs/project-structure.md)
 - [CLAUDE.md](CLAUDE.md)
 
+## Storybook
+
+This project is configured with Storybook using the `@storybook/nextjs` framework.
+
+### Run Storybook locally
+
+```bash
+pnpm storybook
+```
+
+Open `http://localhost:6006`.
+
+### Build static Storybook
+
+```bash
+pnpm build-storybook
+```
+
+### Included example stories
+
+- `components/Button.stories.tsx`
+- `components/dashboard/DashboardShell.stories.tsx`
+
 ## Scripts
 
 ```bash
@@ -117,4 +140,6 @@ pnpm dev
 pnpm build
 pnpm lint
 pnpm start
+pnpm storybook
+pnpm build-storybook
 ```
