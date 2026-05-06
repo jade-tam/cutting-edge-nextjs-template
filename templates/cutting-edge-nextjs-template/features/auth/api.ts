@@ -1,8 +1,9 @@
-import type { AuthSession } from "@/lib/auth/types";
+import type { AuthSession, UserProfile } from "@/lib/auth/types";
 
 import type { ForgotPasswordSchema } from "@/features/auth/schemas/forgot-password-schema";
 import type { LoginSchema } from "@/features/auth/schemas/login-schema";
 import type { RegisterSchema } from "@/features/auth/schemas/register-schema";
+import type { UserProfileUpdateSchema } from "@/features/auth/schemas/user-profile-schema";
 
 type SessionResponse = {
   session: AuthSession;
@@ -18,6 +19,10 @@ type LogoutResponse = {
 
 type SessionLookupResponse = {
   session: AuthSession | null;
+};
+
+type UserProfileResponse = {
+  profile: UserProfile;
 };
 
 type ErrorResponse = {
@@ -106,4 +111,32 @@ export async function getSession() {
   }
 
   return (await res.json()) as SessionLookupResponse;
+}
+
+export async function getUserProfile() {
+  const res = await fetch("/api/user-profile", {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error(await getErrorCode(res));
+  }
+
+  return (await res.json()) as UserProfileResponse;
+}
+
+export async function patchUserProfile(payload: UserProfileUpdateSchema) {
+  const res = await fetch("/api/user-profile", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    throw new Error(await getErrorCode(res));
+  }
+
+  return (await res.json()) as UserProfileResponse;
 }

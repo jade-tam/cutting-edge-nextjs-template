@@ -1,25 +1,21 @@
-import { setRequestLocale } from "next-intl/server";
+"use client";
 
+import { useTranslations } from "next-intl";
+
+import { DashboardPageShell } from "@/features/dashboard/components/dashboard-page-shell";
 import ExampleEntitiesTable from "@/features/example-entity/components/example-entities-table";
-import { Link } from "@/i18n/navigation";
 
-export default async function ExampleEntitiesPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default function ExampleEntitiesPage() {
+  const t = useTranslations();
 
   return (
-    <section className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold">Example Entities</h1>
-        <Link href="/dashboard/example-entities/new" className="btn btn-primary">
-          Create Example Entity
-        </Link>
+    <DashboardPageShell
+      title={t("pages.exampleEntities.title")}
+      description={t("pages.exampleEntities.description")}
+    >
+      <div className="min-h-0 flex-1">
+        <ExampleEntitiesTable />
       </div>
-      <ExampleEntitiesTable />
-    </section>
+    </DashboardPageShell>
   );
 }

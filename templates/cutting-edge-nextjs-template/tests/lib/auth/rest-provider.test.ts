@@ -28,7 +28,7 @@ describe("rest auth provider", () => {
       }),
     });
 
-    const { createRestAuthProvider } = await import("@/lib/auth/providers/rest");
+    const { createRestAuthProvider } = await import("@/lib/auth/adapters/rest");
     const session = await createRestAuthProvider().getSession("token");
 
     expect(session?.role).toBe("user");

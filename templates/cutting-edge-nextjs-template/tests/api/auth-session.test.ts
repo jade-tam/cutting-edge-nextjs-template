@@ -104,10 +104,17 @@ describe("auth API routes", () => {
           username: "ada_lovelace",
           email: "user@example.com",
           password: "Sup3r!SecurePass",
+          confirmPassword: "Sup3r!SecurePass",
         }),
       }),
     );
 
+    expect(mockProvider.register).toHaveBeenCalledWith({
+      fullName: "Ada Lovelace",
+      username: "ada_lovelace",
+      email: "user@example.com",
+      password: "Sup3r!SecurePass",
+    });
     expect(mockProvider.createUserProfile).toHaveBeenCalledWith({
       userId: "uid-1",
       email: "user@example.com",
@@ -135,6 +142,7 @@ describe("auth API routes", () => {
           username: "ada_lovelace",
           email: "user@example.com",
           password: "Sup3r!SecurePass",
+          confirmPassword: "Sup3r!SecurePass",
         }),
       }),
     );
@@ -161,6 +169,7 @@ describe("auth API routes", () => {
           username: "ada_lovelace",
           email: "user@example.com",
           password: "Sup3r!SecurePass",
+          confirmPassword: "Sup3r!SecurePass",
         }),
       }),
     );

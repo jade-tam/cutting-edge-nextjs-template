@@ -22,7 +22,13 @@ export async function POST(request: Request) {
 
   try {
     const provider = createAuthProvider();
-    const result = await provider.register(payload.data);
+    const { email, password, fullName, username } = payload.data;
+    const result = await provider.register({
+      email,
+      password,
+      fullName,
+      username,
+    });
 
     await provider.createUserProfile({
       userId: result.session.userId,

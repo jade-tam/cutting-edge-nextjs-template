@@ -29,6 +29,95 @@ type SeedRecord = {
   metadata: Record<string, string>;
 };
 
+type ExampleEntitySeedRecord = {
+  id: string;
+  title: string;
+  body: string;
+  slug: string;
+  summary: string;
+  status: "draft" | "in_review" | "published" | "archived";
+  category: "product" | "engineering" | "marketing" | "operations";
+  tags: string[];
+  priority: "low" | "medium" | "high" | "urgent";
+  ownerName: string;
+  dueDate: string | null;
+  isFeatured: boolean;
+  publishedAt: string | null;
+  estimatedHours: number | null;
+  progressPercent: number;
+  attachmentsUrl: string[];
+  externalLink: string | null;
+  notes: string;
+};
+
+function createSeedExampleEntities(now: string): ExampleEntitySeedRecord[] {
+  return [
+    {
+      id: "rich-launch-roadmap",
+      title: "Q2 Launch Roadmap",
+      body: "Detailed rollout checklist for the Q2 public beta launch.",
+      slug: "q2-launch-roadmap",
+      summary: "Cross-functional launch roadmap for Q2 beta.",
+      status: "in_review",
+      category: "product",
+      tags: ["launch", "roadmap", "beta"],
+      priority: "high",
+      ownerName: "Jane Product",
+      dueDate: now.slice(0, 10),
+      isFeatured: true,
+      publishedAt: null,
+      estimatedHours: 48,
+      progressPercent: 72,
+      attachmentsUrl: [
+        "https://example.com/docs/q2-launch-plan.pdf",
+        "https://example.com/docs/qa-checklist.pdf",
+      ],
+      externalLink: "https://example.com/projects/q2-launch",
+      notes: "Review legal and support readiness before publish.",
+    },
+    {
+      id: "rich-ops-playbook",
+      title: "Operations Incident Playbook",
+      body: "Response procedures for tier-1 production incidents.",
+      slug: "operations-incident-playbook",
+      summary: "Incident response playbook with owners and escalation paths.",
+      status: "published",
+      category: "operations",
+      tags: ["incident", "ops"],
+      priority: "urgent",
+      ownerName: "Marco Ops",
+      dueDate: null,
+      isFeatured: false,
+      publishedAt: now,
+      estimatedHours: null,
+      progressPercent: 100,
+      attachmentsUrl: [],
+      externalLink: null,
+      notes: "Nullable fields intentionally set for dueDate, estimatedHours, and externalLink.",
+    },
+    {
+      id: "rich-marketing-refresh",
+      title: "Homepage Messaging Refresh",
+      body: "A/B messaging test plan for campaign landing pages.",
+      slug: "homepage-messaging-refresh",
+      summary: "Copy refresh effort for spring campaign conversion uplift.",
+      status: "draft",
+      category: "marketing",
+      tags: ["copy", "campaign", "ab-test"],
+      priority: "medium",
+      ownerName: "Linh Marketing",
+      dueDate: null,
+      isFeatured: false,
+      publishedAt: null,
+      estimatedHours: 16,
+      progressPercent: 18,
+      attachmentsUrl: ["https://example.com/docs/messaging-matrix.xlsx"],
+      externalLink: "https://example.com/experiments/homepage-copy",
+      notes: "Waiting for analytics baseline before moving to review.",
+    },
+  ];
+}
+
 type FirebaseSeedEnv = {
   FIREBASE_API_KEY: string;
   FIREBASE_AUTH_DOMAIN: string;
@@ -62,12 +151,20 @@ function loadFirebaseSeedEnv(): FirebaseSeedEnv {
     : {};
 
   const env: FirebaseSeedEnv = {
-    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY ?? localEnv.FIREBASE_API_KEY ?? "",
+    FIREBASE_API_KEY:
+      process.env.FIREBASE_API_KEY ??
+      localEnv.FIREBASE_API_KEY ??
+      "",
     FIREBASE_AUTH_DOMAIN:
-      process.env.FIREBASE_AUTH_DOMAIN ?? localEnv.FIREBASE_AUTH_DOMAIN ?? "",
+      process.env.FIREBASE_AUTH_DOMAIN ??
+      localEnv.FIREBASE_AUTH_DOMAIN ??
+      "",
     FIREBASE_PROJECT_ID:
-      process.env.FIREBASE_PROJECT_ID ?? localEnv.FIREBASE_PROJECT_ID ?? "",
-    FIREBASE_APP_ID: process.env.FIREBASE_APP_ID ?? localEnv.FIREBASE_APP_ID ?? "",
+      process.env.FIREBASE_PROJECT_ID ??
+      localEnv.FIREBASE_PROJECT_ID ??
+      "",
+    FIREBASE_APP_ID:
+      process.env.FIREBASE_APP_ID ?? localEnv.FIREBASE_APP_ID ?? "",
     USE_FIREBASE_EMULATOR:
       process.env.USE_FIREBASE_EMULATOR ?? localEnv.USE_FIREBASE_EMULATOR ?? "true",
   };
@@ -250,8 +347,39 @@ async function seedUsers() {
     });
   }
 
-  process.stdout.write("Seed completed successfully.\n");
-process.exit(0);
+  await signInWithEmailAndPassword(auth, adminRecord.email, adminRecord.password);
+
+  const exampleEntities = createSeedExampleEntities(now);
+
+  for (const entity of exampleEntities) {
+    const entityRef = doc(firestore, "example-entities", entity.id);
+    await setDoc(entityRef, {
+      title: entity.title,
+      body: entity.body,
+      slug: entity.slug,
+      summary: entity.summary,
+      status: entity.status,
+      category: entity.category,
+      tags: entity.tags,
+      priority: entity.priority,
+      ownerName: entity.ownerName,
+      dueDate: entity.dueDate,
+      isFeatured: entity.isFeatured,
+      publishedAt: entity.publishedAt,
+      estimatedHours: entity.estimatedHours,
+      progressPercent: entity.progressPercent,
+      attachmentsUrl: entity.attachmentsUrl,
+      externalLink: entity.externalLink,
+      notes: entity.notes,
+      createdAt: now,
+      updatedAt: now,
+    });
+  }
+
+  process.stdout.write(
+    `Seed completed successfully. Users: ${seedData.length}. Example entities: ${exampleEntities.length}.\n`,
+  );
+  process.exit(0);
 }
 
 seedUsers().catch((error) => {

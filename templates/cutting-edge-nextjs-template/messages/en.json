@@ -1,12 +1,30 @@
 {
   "metadata": {
     "title": "Next.js Boilerplate Template",
-    "description": "Localized Next.js App Router starter with CSR dashboard examples"
+    "description": "Localized Next.js App Router starter with CSR dashboard examples",
+    "contact": {
+      "title": "Contact",
+      "description": "Get in touch with our team for support, sales, and partnership inquiries."
+    },
+    "solutions": {
+      "title": "Solutions",
+      "description": "Explore our solutions built to help teams ship faster and scale with confidence."
+    },
+    "pricing": {
+      "title": "Pricing",
+      "description": "Choose a pricing plan that fits your team and product growth stage."
+    }
   },
   "navigation": {
     "home": "Home",
     "about": "About",
     "blog": "Blog",
+    "solutions": "Solutions",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mainMenu": "Main navigation",
     "dashboard": "Dashboard",
     "users": "Users",
     "exampleEntities": "Example Entities",
@@ -16,6 +34,25 @@
     "headline": "Build faster with a clean Next.js starter",
     "subheadline": "Includes i18n, SEO scaffolding, and CSR dashboard patterns"
   },
+  "dashboard": {
+    "loading": {
+      "bootstrap": "Loading dashboard"
+    }
+  },
+  "table": {
+    "rowsPerPage": "Rows per page",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "pageStatus": "Page {currentPage} of {totalPages}",
+    "selectedCount": "{count} selected",
+    "deselectAll": "Deselect all",
+    "selectAllRows": "Select all rows",
+    "selectRow": "Select row {row}",
+    "sortAsc": "Sort by {columnId} ascending",
+    "sortDesc": "Sort by {columnId} descending",
+    "sortClear": "Clear sort for {columnId}",
+    "clearFilters": "Clear filters"
+  },
   "toast": {
     "auth": {
       "signedIn": "Signed in successfully.",
@@ -24,7 +61,9 @@
       "serviceUnavailable": "Authentication service is unavailable right now. Please try again later.",
       "signInFailed": "Unable to sign in. Please try again.",
       "registerFailed": "Unable to create account. Please try again.",
-      "forgotPasswordFailed": "Unable to send reset instructions."
+      "forgotPasswordFailed": "Unable to send reset instructions.",
+      "profileUpdated": "Profile updated successfully.",
+      "profileUpdateFailed": "Unable to update profile. Please try again."
     },
     "exampleEntity": {
       "created": "Example entity created successfully.",
@@ -56,7 +95,14 @@
       "username_already_taken": "This username is already taken.",
       "user_profile_not_found": "User profile not found.",
       "user_profile_create_failed": "Unable to create user profile.",
-      "user_profile_update_failed": "Unable to update user profile."
+      "user_profile_update_failed": "Unable to update user profile.",
+      "cannot_update_self_role": "You cannot update your own role.",
+      "cannot_deactivate_self": "You cannot deactivate your own account.",
+      "not_implemented": "This feature is not implemented for the current provider.",
+      "invalid_file_type": "Please choose a PNG, JPG, or WEBP image.",
+      "file_too_large": "Image must be 10MB or smaller.",
+      "upload_failed": "Unable to process the selected image.",
+      "unauthorized": "Please sign in and try uploading again."
     },
     "exampleEntity": {
       "not_found": "Example entity not found.",
@@ -82,6 +128,9 @@
       "noWhitespace": "Password cannot start or end with whitespace",
       "required": "Password is required"
     },
+    "confirmPassword": {
+      "mismatch": "Passwords do not match"
+    },
     "email": {
       "invalid": "Please enter a valid email address"
     },
@@ -106,9 +155,564 @@
     },
     "bio": {
       "tooLong": "Bio must be at most 500 characters"
+    },
+    "exampleEntity": {
+      "title": {
+        "min": "Title is required",
+        "max": "Title must be at most 120 characters"
+      },
+      "body": {
+        "min": "Body is required",
+        "max": "Body must be at most 5000 characters"
+      },
+      "slug": {
+        "min": "Slug is required",
+        "max": "Slug must be at most 160 characters"
+      },
+      "summary": {
+        "min": "Summary is required",
+        "max": "Summary must be at most 280 characters"
+      },
+      "tags": {
+        "max": "Tags must be at most 20 items",
+        "item": {
+          "min": "Tag is required",
+          "max": "Tag must be at most 40 characters"
+        }
+      },
+      "ownerName": {
+        "min": "Owner name is required",
+        "max": "Owner name must be at most 80 characters"
+      },
+      "dueDate": {
+        "invalid": "Due date must be a valid date"
+      },
+      "publishedAt": {
+        "invalid": "Published at must be a valid datetime"
+      },
+      "estimatedHours": {
+        "min": "Estimated hours must be zero or greater"
+      },
+      "progressPercent": {
+        "integer": "Progress must be a whole number",
+        "min": "Progress must be at least 0",
+        "max": "Progress must be at most 100"
+      },
+      "attachmentsUrl": {
+        "max": "Attachments must be at most 10 items",
+        "item": {
+          "invalid": "Attachment URL must be a valid URL"
+        }
+      },
+      "externalLink": {
+        "invalid": "External link must be a valid URL"
+      },
+      "notes": {
+        "max": "Notes must be at most 2000 characters"
+      }
+    }
+  },
+  "themeSwitcher": {
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme"
+  },
+  "languageSwitcher": {
+    "label": "Change language",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "auth": {
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "you@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "MyP@ssw0rd!2024",
+        "show": "Show password",
+        "hide": "Hide password"
+      },
+      "fullName": {
+        "label": "Full name",
+        "placeholder": "John Doe"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "your_username"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "JohnDoe123!"
+      }
+    },
+    "login": {
+      "title": "Sign in",
+      "description": "Welcome back. Enter your credentials to continue.",
+      "submit": "Sign in",
+      "submitting": "Signing in..."
+    },
+    "register": {
+      "title": "Create account",
+      "description": "Create your account to start using the dashboard.",
+      "submit": "Create account",
+      "submitting": "Creating account..."
+    },
+    "forgotPassword": {
+      "title": "Forgot password",
+      "description": "Enter your email and we will send a reset link.",
+      "submit": "Send reset link",
+      "submitting": "Submitting..."
+    },
+    "validation": {
+      "showMoreErrors": "Show more errors",
+      "showLessErrors": "Show fewer errors",
+      "passwordStrength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      }
+    },
+    "actions": {
+      "backToLogin": "Back to login",
+      "orLogin": "Or sign in",
+      "orRegister": "Or create an account",
+      "forgotPassword": "Forgot password",
+      "returnHome": "Return home"
+    }
+  },
+  "dashboardShell": {
+    "brand": "Brand Logo Here",
+    "brandDetail": "Dashboard",
+    "menu": "Menu",
+    "nav": {
+      "overview": "Overview",
+      "exampleEntities": "Example Entities",
+      "users": "User management",
+      "backToSite": "Back to site"
+    },
+    "pageTitle": {
+      "overview": "Dashboard Overview",
+      "exampleEntities": "Example Entities",
+      "createExampleEntity": "Create",
+      "editExampleEntity": "Edit",
+      "exampleEntityDetails": "Example Entity Details"
+    },
+    "actions": {
+      "signOut": "Sign out",
+      "signingOut": "Signing out...",
+      "closeDrawer": "Close drawer"
+    },
+    "tooltips": {
+      "userProfile": "View profile",
+      "settings": "Open settings",
+      "logout": "Sign out"
+    },
+    "breadcrumb": {
+      "label": "Breadcrumb"
+    },
+    "profile": {
+      "defaultName": "User",
+      "defaultEmail": "user@example.com",
+      "avatarAlt": "User avatar"
+    },
+    "logoutModal": {
+      "title": "Sign out?",
+      "message": "Are you sure you want to sign out of your account?",
+      "cancel": "Cancel",
+      "confirm": "Sign out",
+      "close": "Close modal"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "newUser": "New user registered",
+      "newUserDesc": "A new user has registered on the platform",
+      "systemUpdate": "System update",
+      "systemUpdateDesc": "The system has been updated to the latest version",
+      "paymentReceived": "Payment received",
+      "paymentReceivedDesc": "A payment has been successfully processed",
+      "securityAlert": "Security alert",
+      "securityAlertDesc": "Potential security issue detected",
+      "daysAgo": "{count} days ago",
+      "hoursAgo": "{count} hours ago",
+      "justNow": "Just now",
+      "markAllRead": "Mark all read",
+      "clearAll": "Clear all",
+      "empty": "No notifications",
+      "markRead": "Mark as read",
+      "markUnread": "Mark as unread"
+    }
+  },
+  "profile": {
+    "description": "Manage your public profile information.",
+    "fields": {
+      "fullName": {
+        "label": "Full name",
+        "placeholder": "John Doe"
+      },
+      "displayName": {
+        "label": "Display name",
+        "placeholder": "John"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "john_doe"
+      },
+      "pronouns": {
+        "label": "Pronouns",
+        "placeholder": "she/her"
+      },
+      "bio": {
+        "label": "Bio",
+        "placeholder": "Product engineer who loves design systems."
+      }
+    },
+    "avatar": {
+      "label": "Avatar",
+      "help": "Paste a public image URL.",
+      "current": "Current avatar",
+      "alt": "Profile avatar",
+      "uploadButton": "Upload image",
+      "uploading": "Uploading...",
+      "uploadHint": "PNG, JPG, or WEBP up to 2MB.",
+      "uploadSuccess": "Avatar image is ready for preview.",
+      "errors": {
+        "invalidType": "Please choose a PNG, JPG, or WEBP image.",
+        "fileTooLarge": "Image must be 2MB or smaller.",
+        "uploadFailed": "Unable to process the selected image.",
+        "processingFailed": "Failed to process image. Try a different file.",
+        "permissionDenied": "Upload failed. Please sign in again.",
+        "quotaExceeded": "Storage limit reached. Contact support."
+      }
+    },
+    "actions": {
+      "reset": "Reset",
+      "save": "Save changes",
+      "saving": "Saving..."
+    },
+    "preview": {
+      "label": "Profile preview"
+    }
+  },
+  "exampleEntity": {
+    "validation": {
+      "showMoreErrors": "Show more errors",
+      "showLessErrors": "Show fewer errors"
+    },
+    "form": {
+      "sections": {
+        "general": "General Information",
+        "assignment": "Assignment",
+        "metadata": "Metadata",
+        "featured": "Highlight"
+      },
+      "saving": "Saving...",
+      "submitCreate": "Create",
+      "submitEdit": "Save",
+      "fields": {
+        "title": {
+          "label": "Title",
+          "placeholder": "Launch roadmap"
+        },
+        "slug": {
+          "label": "Slug",
+          "placeholder": "launch-roadmap"
+        },
+        "summary": {
+          "label": "Summary",
+          "placeholder": "Roadmap summary for Q2 launch"
+        },
+        "status": {
+          "label": "Status",
+          "options": {
+            "draft": "Draft",
+            "in_review": "In review",
+            "published": "Published",
+            "archived": "Archived"
+          }
+        },
+        "category": {
+          "label": "Category",
+          "options": {
+            "product": "Product",
+            "engineering": "Engineering",
+            "marketing": "Marketing",
+            "operations": "Operations"
+          }
+        },
+        "priority": {
+          "label": "Priority",
+          "options": {
+            "low": "Low",
+            "medium": "Medium",
+            "high": "High",
+            "urgent": "Urgent"
+          }
+        },
+        "ownerName": {
+          "label": "Owner name",
+          "placeholder": "Jane Doe"
+        },
+        "tags": {
+          "label": "Tags",
+          "placeholder": "launch, q2, beta",
+          "hint": "Separate tags with commas"
+        },
+        "dueDate": {
+          "label": "Due date",
+          "previousMonthLabel": "Previous",
+          "nextMonthLabel": "Next"
+        },
+        "publishedAt": {
+          "label": "Published at"
+        },
+        "estimatedHours": {
+          "label": "Estimated hours"
+        },
+        "progressPercent": {
+          "label": "Progress (%)"
+        },
+        "attachmentsUrl": {
+          "label": "Attachment URLs",
+          "placeholder": "https://example.com/spec.pdf"
+        },
+        "externalLink": {
+          "label": "External link",
+          "placeholder": "https://example.com/project"
+        },
+        "notes": {
+          "label": "Notes",
+          "placeholder": "Extra implementation notes"
+        },
+        "isFeatured": {
+          "label": "Feature on homepage"
+        },
+        "body": {
+          "label": "Body",
+          "placeholder": "Detailed entity content"
+        }
+      }
+    },
+    "table": {
+      "loading": "Loading example entities...",
+      "empty": "No example entities yet.",
+      "toolbar": {
+        "searchLabel": "Search entities",
+        "searchPlaceholder": "Search by title, owner, or status",
+        "statusFilterLabel": "Filter by status",
+        "allStatusesLabel": "All statuses",
+        "rowsPerPageLabel": "Rows",
+        "previousPageLabel": "Previous",
+        "nextPageLabel": "Next",
+        "pageStatusLabel": "Page {currentPage} of {totalPages}",
+        "selectedCountLabel": "{count} selected",
+        "deselectAllLabel": "Deselect all",
+        "selectAllRowsLabel": "Select all rows",
+        "selectRowLabel": "Select row {rowIndex}",
+        "sortAscendingLabel": "Sort by {columnId} ascending",
+        "sortDescendingLabel": "Sort by {columnId} descending",
+        "clearSortLabel": "Clear sort for {columnId}"
+      },
+      "columns": {
+        "title": "Title",
+        "status": "Status",
+        "priority": "Priority",
+        "owner": "Owner",
+        "updated": "Updated",
+        "actions": "Actions"
+      },
+      "sortAria": {
+        "title": {
+          "asc": "Sort by title ascending",
+          "desc": "Sort by title descending"
+        },
+        "updated": {
+          "asc": "Sort by updated ascending",
+          "desc": "Sort by updated descending"
+        }
+      },
+      "actions": {
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "deleteModal": {
+        "title": "Delete example entity?",
+        "description": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+        "cancel": "Cancel",
+        "deleting": "Deleting..."
+      },
+      "bulkActions": {
+        "delete": "Delete selected",
+        "deleteSuccess": "Deleted {count} entities.",
+        "deleteModal": {
+          "title": "Delete {count} selected entities?",
+          "description": "These entities will be permanently deleted."
+        }
+      }
+    },
+    "detail": {
+      "loading": "Loading example entity...",
+      "notFound": "Example entity not found.",
+      "actions": {
+        "back": "Back",
+        "edit": "Edit",
+        "delete": "Delete",
+        "deleting": "Deleting..."
+      },
+      "featured": "Featured",
+      "owner": "Owner",
+      "slug": "Slug",
+      "progressPercent": "Progress",
+      "estimatedHours": "Estimated hours",
+      "createdAt": "Created",
+      "updatedAtLabel": "Updated",
+      "dueDate": "Due date",
+      "publishedAt": "Published at",
+      "tags": "Tags",
+      "bodyLabel": "Body",
+      "notes": "Notes",
+      "externalLink": "External link",
+      "attachments": "Attachments",
+      "emptyValue": "-",
+      "noTags": "No tags",
+      "noNotes": "No notes",
+      "noExternalLink": "No external link",
+      "noAttachments": "No attachments",
+      "deleteModal": {
+        "title": "Delete example entity?",
+        "description": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+        "cancel": "Cancel",
+        "confirm": "Delete",
+        "deleting": "Deleting...",
+        "close": "Close modal"
+      }
     }
   },
   "pages": {
+    "public": {
+      "landing": {
+        "title": "Next.js Boilerplate Template",
+        "description": "Localized Next.js App Router starter with CSR dashboard examples"
+      },
+      "solutions": {
+        "title": "Solutions",
+        "description": "Use this page as a simple starting point to describe your core offerings."
+      },
+      "pricing": {
+        "title": "Pricing",
+        "description": "Start with a clean pricing template and evolve it as your plans mature."
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Provide straightforward contact details or replace this with your lead form."
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "You are viewing the {locale} locale.",
+      "cards": {
+        "overview": {
+          "title": "Overview",
+          "description": "Check high-level status and recent activity."
+        },
+        "exampleEntities": {
+          "title": "Example entities",
+          "description": "Manage sample entities with create/read/update/delete actions."
+        },
+        "providerSwitch": {
+          "title": "Provider switch",
+          "description": "Swap data providers via environment configuration."
+        }
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "Manage your dashboard preferences.",
+      "appearance": {
+        "title": "Appearance",
+        "description": "Switch between light and dark themes."
+      }
+    },
+    "profile": {
+      "title": "Profile",
+      "description": "Manage your public profile information."
+    },
+    "exampleEntities": {
+      "title": "Example Entities",
+      "createAction": "Create",
+      "description": "Manage your records and monitor provider-backed CRUD state."
+    },
+    "exampleEntitiesCreate": {
+      "title": "Create Example Entity",
+      "description": "Fill in the fields below to create a new example entity."
+    },
+    "exampleEntitiesDetail": {
+      "title": "Example Entity Details",
+      "description": "Review all details for this example entity."
+    },
+    "exampleEntitiesEdit": {
+      "title": "Edit Example Entity",
+      "description": "Update the fields below for this example entity."
+    },
+    "userManagement": {
+      "title": "User management",
+      "description": "Manage user roles, status, and access across the dashboard.",
+      "empty": "No users yet.",
+      "emptyFiltered": "No users match your current filters.",
+      "search": {
+        "label": "Search users",
+        "placeholder": "Search by email or username"
+      },
+      "actions": {
+        "changeRole": "Change role",
+        "activate": "Activate",
+        "deactivate": "Deactivate",
+        "activateSelected": "Activate selected",
+        "deactivateSelected": "Deactivate selected"
+      },
+      "bulkActions": {
+        "confirmActivate": "Activate",
+        "confirmDeactivate": "Deactivate",
+        "cancel": "Cancel",
+        "close": "Close modal",
+        "activateModal": {
+          "title": "Activate {count} selected users?",
+          "description": "Are you sure you want to activate the selected users?"
+        },
+        "deactivateModal": {
+          "title": "Deactivate {count} selected users?",
+          "description": "Are you sure you want to deactivate the selected users?"
+        },
+        "activateSingleModal": {
+          "title": "Activate this user?",
+          "description": "Are you sure you want to activate {email} ({username})?"
+        },
+        "deactivateSingleModal": {
+          "title": "Deactivate this user?",
+          "description": "Are you sure you want to deactivate {email} ({username})?"
+        }
+      },
+      "columns": {
+        "role": "Role",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "roles": {
+        "admin": "Admin",
+        "manager": "Manager",
+        "user": "User"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "filters": {
+        "allRoles": "All roles",
+        "allStatuses": "All statuses"
+      }
+    },
     "unauthorized": {
       "title": "Access denied",
       "heading": "You don't have permission",

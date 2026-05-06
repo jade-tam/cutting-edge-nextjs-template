@@ -8,13 +8,13 @@ const weakPasswords = new Set([
   "welcome123",
 ]);
 
-const normalizedEmailSchema = z
+export const normalizedEmailSchema = z
   .string()
   .trim()
   .toLowerCase()
   .email("validation.email.invalid");
 
-const passwordSchema = z
+export const passwordSchema = z
   .string()
   .min(12, "validation.password.tooShort")
   .max(128, "validation.password.tooLong")
@@ -37,20 +37,32 @@ const passwordSchema = z
     message: "validation.password.weakPassword",
   });
 
-export const registerSchema = z.object({
-  fullName: z
-    .string()
-    .trim()
-    .min(2, "validation.fullName.tooShort")
-    .max(100, "validation.fullName.tooLong"),
-  username: z
-    .string()
-    .trim()
-    .min(3, "validation.username.tooShort")
-    .max(30, "validation.username.tooLong")
-    .regex(/^[A-Za-z0-9_]+$/, "validation.username.invalidFormat"),
-  email: normalizedEmailSchema,
-  password: passwordSchema,
-});
+export const fullNameSchema = z
+  .string()
+  .trim()
+  .min(2, "validation.fullName.tooShort")
+  .max(100, "validation.fullName.tooLong");
+
+export const usernameSchema = z
+  .string()
+  .trim()
+  .min(3, "validation.username.tooShort")
+  .max(30, "validation.username.tooLong")
+  .regex(/^[A-Za-z0-9_]+$/, "validation.username.invalidFormat");
+
+export const confirmPasswordSchema = z.string();
+
+export const registerSchema = z
+  .object({
+    fullName: fullNameSchema,
+    username: usernameSchema,
+    email: normalizedEmailSchema,
+    password: passwordSchema,
+    confirmPassword: confirmPasswordSchema,
+  })
+  .refine((value) => value.password === value.confirmPassword, {
+    message: "validation.confirmPassword.mismatch",
+    path: ["confirmPassword"],
+  });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;

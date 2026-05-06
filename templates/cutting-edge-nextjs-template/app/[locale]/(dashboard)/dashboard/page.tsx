@@ -1,39 +1,38 @@
-import { setRequestLocale } from "next-intl/server";
+"use client";
 
-export default async function DashboardPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+import { useLocale, useTranslations } from "next-intl";
+
+import { DashboardPageShell } from "@/features/dashboard/components/dashboard-page-shell";
+
+export default function DashboardPage() {
+  const t = useTranslations();
+  const locale = useLocale();
 
   return (
-    <section className="space-y-4">
-      <h1 className="text-3xl font-semibold">Dashboard</h1>
-      <p className="text-base-content/70">
-        Manage authenticated dashboard workflows. Current locale: {locale}
-      </p>
+    <DashboardPageShell
+      title={t("pages.dashboard.title")}
+      description={t("pages.dashboard.description", { locale })}
+    >
       <div className="grid gap-4 md:grid-cols-3">
         <article className="card bg-base-100 p-4 shadow">
-          <h2 className="text-lg font-semibold">Overview</h2>
+          <h2 className="text-lg font-semibold">{t("pages.dashboard.cards.overview.title")}</h2>
           <p className="text-sm text-base-content/70">
-            Protected dashboard landing experience.
+            {t("pages.dashboard.cards.overview.description")}
           </p>
         </article>
         <article className="card bg-base-100 p-4 shadow">
-          <h2 className="text-lg font-semibold">Example Entities</h2>
+          <h2 className="text-lg font-semibold">{t("pages.dashboard.cards.exampleEntities.title")}</h2>
           <p className="text-sm text-base-content/70">
-            List, view, create, edit, and delete example entities.
+            {t("pages.dashboard.cards.exampleEntities.description")}
           </p>
         </article>
         <article className="card bg-base-100 p-4 shadow">
-          <h2 className="text-lg font-semibold">Provider Switch</h2>
+          <h2 className="text-lg font-semibold">{t("pages.dashboard.cards.providerSwitch.title")}</h2>
           <p className="text-sm text-base-content/70">
-            Data is served by REST or Firebase through a single configuration key.
+            {t("pages.dashboard.cards.providerSwitch.description")}
           </p>
         </article>
       </div>
-    </section>
+    </DashboardPageShell>
   );
 }

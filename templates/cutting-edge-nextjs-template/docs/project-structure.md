@@ -81,7 +81,7 @@ Forbidden:
 ## Placement matrix
 | If you are adding... | Put it in... | Concrete example |
 |---|---|---|
-| Route page | `app/[locale]/.../page.tsx` | `app/[locale]/(marketing)/pricing/page.tsx` |
+| Route page | `app/[locale]/.../page.tsx` | `app/[locale]/(public)/pricing/page.tsx` |
 | Route handler | `app/api/.../route.ts` | `app/api/health/route.ts` |
 | Feature use case logic | `features/<feature>/` | `features/users/use-create-user.ts` |
 | Feature-only presentational component | `features/<feature>/components/` | `features/users/components/create-user-form.tsx` |

@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
+import { exampleEntitySchema } from "@/features/example-entity/schemas/entity-schema";
 import { getHttpStatusForError, isExampleEntityError } from "@/lib/example-entity/errors";
 import { createExampleEntityProvider } from "@/lib/example-entity/factory";
 
-const requestSchema = z.object({
-  title: z.string().min(1).max(120),
-  body: z.string().min(1).max(5000),
-});
+const requestSchema = exampleEntitySchema;
 
 export async function GET() {
   try {

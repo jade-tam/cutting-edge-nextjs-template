@@ -112,6 +112,52 @@ describe("proxy", () => {
     expect(managerResponse.status).not.toBe(307);
   });
 
+  it("allows only admin access to /dashboard/users", async () => {
+    vi.stubEnv("DATA_PROVIDER", "rest");
+    vi.stubEnv("AUTH_COOKIE_NAME", "dashboard_session");
+    vi.stubEnv("REST_API_BASE_URL", "http://localhost:3001/api");
+    vi.stubEnv("NEXT_PUBLIC_BASE_URL", "http://localhost");
+
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: vi.fn().mockResolvedValueOnce({
+            session: {
+              userId: "uid-admin",
+              email: "admin@example.com",
+              role: "admin",
+            },
+          }),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: vi.fn().mockResolvedValueOnce({
+            session: {
+              userId: "uid-manager",
+              email: "manager@example.com",
+              role: "manager",
+            },
+          }),
+        }),
+    );
+
+    const { proxy } = await loadProxyModule();
+
+    const adminResponse = await proxy(
+      createRequest("/dashboard/users", "dashboard_session=admin-token"),
+    );
+    const managerResponse = await proxy(
+      createRequest("/dashboard/users", "dashboard_session=manager-token"),
+    );
+
+    expect(adminResponse.status).not.toBe(307);
+    expect(managerResponse.status).toBe(307);
+    expect(managerResponse.headers.get("location")).toContain("/unauthorized");
+  });
+
   it("redirects authenticated admin users from auth routes to /dashboard", async () => {
     vi.stubEnv("DATA_PROVIDER", "rest");
     vi.stubEnv("AUTH_COOKIE_NAME", "dashboard_session");

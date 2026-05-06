@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 async function loadRestProviderModule() {
   vi.resetModules();
-  return import("../../../lib/example-entity/providers/rest");
+  return import("../../../lib/example-entity/adapters/rest");
 }
 
 afterEach(() => {

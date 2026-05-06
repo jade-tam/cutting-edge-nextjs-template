@@ -4,27 +4,27 @@ test.describe("auth pages smoke", () => {
   test("login page renders essential fields", async ({ page }) => {
     await page.goto("/login");
 
-    await expect(page.getByRole("heading", { name: "Sign in" })).toBeVisible();
+    await expect(page.getByText("Welcome back. Enter your credentials to continue.")).toBeVisible();
     await expect(page.getByLabel("Email")).toBeVisible();
-    await expect(page.getByLabel("Password")).toBeVisible();
+    await expect(page.getByLabel("Password", { exact: true })).toBeVisible();
     await expect(page.getByRole("button", { name: "Sign in" })).toBeVisible();
   });
 
   test("register page renders essential fields", async ({ page }) => {
     await page.goto("/register");
 
-    await expect(page.getByRole("heading", { name: "Create account" })).toBeVisible();
+    await expect(page.getByText("Create your account to start using the dashboard.")).toBeVisible();
     await expect(page.getByLabel("Full name")).toBeVisible();
     await expect(page.getByLabel("Username")).toBeVisible();
     await expect(page.getByLabel("Email")).toBeVisible();
-    await expect(page.getByLabel("Password")).toBeVisible();
+    await expect(page.getByLabel("Password", { exact: true })).toBeVisible();
     await expect(page.getByRole("button", { name: "Create account" })).toBeVisible();
   });
 
   test("forgot-password page renders essential fields", async ({ page }) => {
     await page.goto("/forgot-password");
 
-    await expect(page.getByRole("heading", { name: "Forgot password" })).toBeVisible();
+    await expect(page.getByText("Forgot password")).toBeVisible();
     await expect(page.getByLabel("Email")).toBeVisible();
     await expect(page.getByRole("button", { name: "Send reset link" })).toBeVisible();
   });

@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
+import { getCanonicalBaseUrl } from "@/config/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  const base = process.env.NEXT_PUBLIC_BASE_URL!;
+  const base = getCanonicalBaseUrl();
 
   return {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/dashboard/*", "/api/*"],
     },
     sitemap: `${base}/sitemap.xml`,
   };

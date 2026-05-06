@@ -1,26 +1,16 @@
 import type { MetadataRoute } from "next";
+import { buildAbsoluteUrl, getLocalizedPath } from "@/config/seo";
 import { routing } from "@/i18n/routing";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_BASE_URL ?? "https://example.com";
-  const routes = [
-    "/",
-    "/about",
-    "/blog",
-    "/dashboard",
-    "/dashboard/users",
-    "/dashboard/users/create",
-  ];
+const publicRoutes = ["/", "/pricing", "/solutions", "/contact"];
 
+export default function sitemap(): MetadataRoute.Sitemap {
   return routing.locales.flatMap((locale) =>
-    routes.map((route) => ({
-      url:
-        locale === routing.defaultLocale
-          ? `${base}${route}`
-          : `${base}/${locale}${route}`,
+    publicRoutes.map((route) => ({
+      url: buildAbsoluteUrl(getLocalizedPath(locale, route)),
       lastModified: new Date(),
-      changeFrequency: "monthly" as const,
+      changeFrequency: route === "/" ? ("weekly" as const) : ("monthly" as const),
       priority: route === "/" ? 1 : 0.8,
-    }))
+    })),
   );
 }

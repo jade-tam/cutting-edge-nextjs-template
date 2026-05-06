@@ -2,6 +2,26 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { ExampleEntityError } from "../../../lib/example-entity/errors";
 
+const validPayload = {
+  title: "Roadmap 2026",
+  body: "Detailed body",
+  slug: "roadmap-2026",
+  summary: "Q2 roadmap",
+  status: "draft",
+  category: "product",
+  tags: ["q2", "launch"],
+  priority: "medium",
+  ownerName: "Jane Doe",
+  dueDate: null,
+  isFeatured: false,
+  publishedAt: null,
+  estimatedHours: null,
+  progressPercent: 0,
+  attachmentsUrl: [],
+  externalLink: null,
+  notes: "",
+};
+
 const mockProvider = {
   kind: "firebase" as const,
   list: vi.fn(),
@@ -60,7 +80,7 @@ describe("example-entities by-id API route", () => {
     const response = await route.PATCH(
       new Request("http://localhost", {
         method: "PATCH",
-        body: JSON.stringify({ title: "Hello", body: "World" }),
+        body: JSON.stringify(validPayload),
         headers: { "Content-Type": "application/json" },
       }),
       {

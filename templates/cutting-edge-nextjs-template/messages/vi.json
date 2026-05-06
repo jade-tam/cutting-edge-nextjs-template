@@ -1,12 +1,30 @@
 {
   "metadata": {
     "title": "Mẫu Next.js Boilerplate",
-    "description": "Starter Next.js đa ngôn ngữ với ví dụ dashboard CSR"
+    "description": "Starter Next.js đa ngôn ngữ với ví dụ dashboard CSR",
+    "contact": {
+      "title": "Liên hệ",
+      "description": "Liên hệ đội ngũ của chúng tôi để được hỗ trợ, tư vấn bán hàng và hợp tác."
+    },
+    "solutions": {
+      "title": "Giải pháp",
+      "description": "Khám phá các giải pháp giúp đội ngũ phát triển nhanh hơn và mở rộng vững chắc."
+    },
+    "pricing": {
+      "title": "Bảng giá",
+      "description": "Chọn gói phù hợp với quy mô đội ngũ và giai đoạn phát triển sản phẩm của bạn."
+    }
   },
   "navigation": {
     "home": "Trang chủ",
     "about": "Giới thiệu",
     "blog": "Blog",
+    "solutions": "Giải pháp",
+    "pricing": "Bảng giá",
+    "contact": "Liên hệ",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu",
+    "mainMenu": "Điều hướng chính",
     "dashboard": "Bảng điều khiển",
     "users": "Người dùng",
     "exampleEntities": "Thực thể ví dụ",
@@ -16,6 +34,25 @@
     "headline": "Bắt đầu nhanh hơn với mẫu Next.js gọn gàng",
     "subheadline": "Bao gồm i18n, SEO scaffolding và mẫu dashboard CSR"
   },
+  "dashboard": {
+    "loading": {
+      "bootstrap": "Đang tải bảng điều khiển"
+    }
+  },
+  "table": {
+    "rowsPerPage": "Số dòng mỗi trang",
+    "previousPage": "Trang trước",
+    "nextPage": "Trang sau",
+    "pageStatus": "Trang {currentPage} / {totalPages}",
+    "selectedCount": "Đã chọn {count}",
+    "deselectAll": "Bỏ chọn tất cả",
+    "selectAllRows": "Chọn tất cả dòng",
+    "selectRow": "Chọn dòng {row}",
+    "sortAsc": "Sắp xếp {columnId} tăng dần",
+    "sortDesc": "Sắp xếp {columnId} giảm dần",
+    "sortClear": "Xóa sắp xếp cho {columnId}",
+    "clearFilters": "Xóa bộ lọc"
+  },
   "toast": {
     "auth": {
       "signedIn": "Đăng nhập thành công.",
@@ -24,7 +61,9 @@
       "serviceUnavailable": "Dịch vụ xác thực hiện không khả dụng. Vui lòng thử lại sau.",
       "signInFailed": "Không thể đăng nhập. Vui lòng thử lại.",
       "registerFailed": "Không thể tạo tài khoản. Vui lòng thử lại.",
-      "forgotPasswordFailed": "Không thể gửi hướng dẫn đặt lại mật khẩu."
+      "forgotPasswordFailed": "Không thể gửi hướng dẫn đặt lại mật khẩu.",
+      "profileUpdated": "Cập nhật hồ sơ thành công.",
+      "profileUpdateFailed": "Không thể cập nhật hồ sơ. Vui lòng thử lại."
     },
     "exampleEntity": {
       "created": "Tạo thực thể ví dụ thành công.",
@@ -56,7 +95,14 @@
       "username_already_taken": "Tên người dùng này đã được sử dụng.",
       "user_profile_not_found": "Không tìm thấy hồ sơ người dùng.",
       "user_profile_create_failed": "Không thể tạo hồ sơ người dùng.",
-      "user_profile_update_failed": "Không thể cập nhật hồ sơ người dùng."
+      "user_profile_update_failed": "Không thể cập nhật hồ sơ người dùng.",
+      "cannot_update_self_role": "Bạn không thể cập nhật vai trò của chính mình.",
+      "cannot_deactivate_self": "Bạn không thể vô hiệu hóa tài khoản của chính mình.",
+      "not_implemented": "Tính năng này chưa được triển khai cho nhà cung cấp hiện tại.",
+      "invalid_file_type": "Vui lòng chọn ảnh PNG, JPG hoặc WEBP.",
+      "file_too_large": "Ảnh phải nhỏ hơn hoặc bằng 10MB.",
+      "upload_failed": "Không thể xử lý ảnh đã chọn.",
+      "unauthorized": "Vui lòng đăng nhập lại rồi thử tải ảnh lên."
     },
     "exampleEntity": {
       "not_found": "Không tìm thấy thực thể ví dụ.",
@@ -82,6 +128,9 @@
       "noWhitespace": "Mật khẩu không được có khoảng trắng ở đầu hoặc cuối",
       "required": "Vui lòng nhập mật khẩu"
     },
+    "confirmPassword": {
+      "mismatch": "Mật khẩu xác nhận không khớp"
+    },
     "email": {
       "invalid": "Vui lòng nhập địa chỉ email hợp lệ"
     },
@@ -106,9 +155,564 @@
     },
     "bio": {
       "tooLong": "Tiểu sử tối đa 500 ký tự"
+    },
+    "exampleEntity": {
+      "title": {
+        "min": "Tiêu đề là bắt buộc",
+        "max": "Tiêu đề tối đa 120 ký tự"
+      },
+      "body": {
+        "min": "Nội dung là bắt buộc",
+        "max": "Nội dung tối đa 5000 ký tự"
+      },
+      "slug": {
+        "min": "Slug là bắt buộc",
+        "max": "Slug tối đa 160 ký tự"
+      },
+      "summary": {
+        "min": "Tóm tắt là bắt buộc",
+        "max": "Tóm tắt tối đa 280 ký tự"
+      },
+      "tags": {
+        "max": "Tối đa 20 thẻ",
+        "item": {
+          "min": "Thẻ là bắt buộc",
+          "max": "Thẻ tối đa 40 ký tự"
+        }
+      },
+      "ownerName": {
+        "min": "Tên người phụ trách là bắt buộc",
+        "max": "Tên người phụ trách tối đa 80 ký tự"
+      },
+      "dueDate": {
+        "invalid": "Ngày đến hạn phải là ngày hợp lệ"
+      },
+      "publishedAt": {
+        "invalid": "Thời điểm xuất bản phải là datetime hợp lệ"
+      },
+      "estimatedHours": {
+        "min": "Số giờ ước tính phải lớn hơn hoặc bằng 0"
+      },
+      "progressPercent": {
+        "integer": "Tiến độ phải là số nguyên",
+        "min": "Tiến độ phải từ 0 trở lên",
+        "max": "Tiến độ không được vượt quá 100"
+      },
+      "attachmentsUrl": {
+        "max": "Tối đa 10 tệp đính kèm",
+        "item": {
+          "invalid": "URL tệp đính kèm phải hợp lệ"
+        }
+      },
+      "externalLink": {
+        "invalid": "Liên kết ngoài phải là URL hợp lệ"
+      },
+      "notes": {
+        "max": "Ghi chú tối đa 2000 ký tự"
+      }
+    }
+  },
+  "themeSwitcher": {
+    "switchToLight": "Chuyển sang giao diện sáng",
+    "switchToDark": "Chuyển sang giao diện tối"
+  },
+  "languageSwitcher": {
+    "label": "Đổi ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  },
+  "auth": {
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "you@example.com"
+      },
+      "password": {
+        "label": "Mật khẩu",
+        "placeholder": "MyP@ssw0rd!2024",
+        "show": "Hiện mật khẩu",
+        "hide": "Ẩn mật khẩu"
+      },
+      "fullName": {
+        "label": "Họ và tên",
+        "placeholder": "Nguyễn Văn A"
+      },
+      "username": {
+        "label": "Tên người dùng",
+        "placeholder": "ten_nguoi_dung"
+      },
+      "confirmPassword": {
+        "label": "Xác nhận mật khẩu",
+        "placeholder": "NguyenVanA123!"
+      }
+    },
+    "login": {
+      "title": "Đăng nhập",
+      "description": "Chào mừng bạn quay lại. Nhập thông tin để tiếp tục.",
+      "submit": "Đăng nhập",
+      "submitting": "Đang đăng nhập..."
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "description": "Tạo tài khoản để bắt đầu sử dụng bảng điều khiển.",
+      "submit": "Tạo tài khoản",
+      "submitting": "Đang tạo tài khoản..."
+    },
+    "forgotPassword": {
+      "title": "Quên mật khẩu",
+      "description": "Nhập email của bạn và chúng tôi sẽ gửi liên kết đặt lại.",
+      "submit": "Gửi liên kết đặt lại",
+      "submitting": "Đang gửi..."
+    },
+    "validation": {
+      "showMoreErrors": "Hiển thị thêm lỗi",
+      "showLessErrors": "Hiển thị ít lỗi hơn",
+      "passwordStrength": {
+        "weak": "Yếu",
+        "fair": "Trung bình",
+        "good": "Tốt",
+        "strong": "Mạnh"
+      }
+    },
+    "actions": {
+      "backToLogin": "Quay lại đăng nhập",
+      "orLogin": "Hoặc đăng nhập",
+      "orRegister": "Hoặc tạo tài khoản",
+      "forgotPassword": "Quên mật khẩu",
+      "returnHome": "Về trang chủ"
+    }
+  },
+  "dashboardShell": {
+    "brand": "Logo Thương Hiệu",
+    "brandDetail": "Bảng điều khiển",
+    "menu": "Menu",
+    "nav": {
+      "overview": "Tổng quan",
+      "exampleEntities": "Thực thể ví dụ",
+      "users": "Quản lý người dùng",
+      "backToSite": "Quay lại trang web"
+    },
+    "pageTitle": {
+      "overview": "Tổng quan bảng điều khiển",
+      "exampleEntities": "Thực thể ví dụ",
+      "createExampleEntity": "Tạo mới",
+      "editExampleEntity": "Chỉnh sửa",
+      "exampleEntityDetails": "Chi tiết thực thể ví dụ"
+    },
+    "actions": {
+      "signOut": "Đăng xuất",
+      "signingOut": "Đang đăng xuất...",
+      "closeDrawer": "Đóng ngăn kéo"
+    },
+    "tooltips": {
+      "userProfile": "Xem hồ sơ",
+      "settings": "Mở cài đặt",
+      "logout": "Đăng xuất"
+    },
+    "breadcrumb": {
+      "label": "Đường dẫn điều hướng"
+    },
+    "profile": {
+      "defaultName": "Người dùng",
+      "defaultEmail": "user@example.com",
+      "avatarAlt": "Ảnh đại diện người dùng"
+    },
+    "logoutModal": {
+      "title": "Đăng xuất?",
+      "message": "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản không?",
+      "cancel": "Hủy",
+      "confirm": "Đăng xuất",
+      "close": "Đóng hộp thoại"
+    },
+    "notifications": {
+      "title": "Thông báo",
+      "newUser": "Người dùng mới đăng ký",
+      "newUserDesc": "Một người dùng mới đã đăng ký trên nền tảng",
+      "systemUpdate": "Cập nhật hệ thống",
+      "systemUpdateDesc": "Hệ thống đã được cập nhật lên phiên bản mới nhất",
+      "paymentReceived": "Thanh toán nhận được",
+      "paymentReceivedDesc": "Một khoản thanh toán đã được xử lý thành công",
+      "securityAlert": "Cảnh báo bảo mật",
+      "securityAlertDesc": "Phát hiện vấn đề bảo mật tiềm ẩn",
+      "daysAgo": "{count} ngày trước",
+      "hoursAgo": "{count} giờ trước",
+      "justNow": "Vừa xong",
+      "markAllRead": "Đánh dấu tất cả đã đọc",
+      "clearAll": "Xóa tất",
+      "empty": "Không có thông báo",
+      "markRead": "Đánh dấu đã đọc",
+      "markUnread": "Đánh dấu chưa đọc"
+    }
+  },
+  "profile": {
+    "description": "Quản lý thông tin hồ sơ công khai của bạn.",
+    "fields": {
+      "fullName": {
+        "label": "Họ và tên",
+        "placeholder": "Nguyễn Văn A"
+      },
+      "displayName": {
+        "label": "Tên hiển thị",
+        "placeholder": "Văn A"
+      },
+      "username": {
+        "label": "Tên người dùng",
+        "placeholder": "nguyen_van_a"
+      },
+      "pronouns": {
+        "label": "Đại từ",
+        "placeholder": "anh/anh ấy"
+      },
+      "bio": {
+        "label": "Tiểu sử",
+        "placeholder": "Kỹ sư sản phẩm yêu thích design system."
+      }
+    },
+    "avatar": {
+      "label": "Ảnh đại diện",
+      "help": "Dán URL ảnh công khai.",
+      "current": "Ảnh đại diện hiện tại",
+      "alt": "Ảnh đại diện hồ sơ",
+      "uploadButton": "Tải ảnh lên",
+      "uploading": "Đang tải lên...",
+      "uploadHint": "PNG, JPG hoặc WEBP tối đa 2MB.",
+      "uploadSuccess": "Ảnh đại diện đã sẵn sàng để xem trước.",
+      "errors": {
+        "invalidType": "Vui lòng chọn ảnh PNG, JPG hoặc WEBP.",
+        "fileTooLarge": "Ảnh phải có kích thước từ 2MB trở xuống.",
+        "uploadFailed": "Không thể xử lý ảnh đã chọn.",
+        "processingFailed": "Không thể xử lý ảnh. Vui lòng thử ảnh khác.",
+        "permissionDenied": "Tải ảnh thất bại. Vui lòng đăng nhập lại.",
+        "quotaExceeded": "Đã vượt giới hạn lưu trữ. Vui lòng liên hệ hỗ trợ."
+      }
+    },
+    "actions": {
+      "reset": "Đặt lại",
+      "save": "Lưu thay đổi",
+      "saving": "Đang lưu..."
+    },
+    "preview": {
+      "label": "Xem trước hồ sơ"
+    }
+  },
+  "exampleEntity": {
+    "validation": {
+      "showMoreErrors": "Hiển thị thêm lỗi",
+      "showLessErrors": "Hiển thị ít lỗi hơn"
+    },
+    "form": {
+      "sections": {
+        "general": "Thông tin chung",
+        "assignment": "Phân công",
+        "metadata": "Siêu dữ liệu",
+        "featured": "Làm nổi bật"
+      },
+      "saving": "Đang lưu...",
+      "submitCreate": "Tạo",
+      "submitEdit": "Lưu",
+      "fields": {
+        "title": {
+          "label": "Tiêu đề",
+          "placeholder": "Lộ trình ra mắt"
+        },
+        "slug": {
+          "label": "Slug",
+          "placeholder": "lo-trinh-ra-mat"
+        },
+        "summary": {
+          "label": "Tóm tắt",
+          "placeholder": "Tóm tắt lộ trình ra mắt quý 2"
+        },
+        "status": {
+          "label": "Trạng thái",
+          "options": {
+            "draft": "Nháp",
+            "in_review": "Đang duyệt",
+            "published": "Đã xuất bản",
+            "archived": "Đã lưu trữ"
+          }
+        },
+        "category": {
+          "label": "Danh mục",
+          "options": {
+            "product": "Sản phẩm",
+            "engineering": "Kỹ thuật",
+            "marketing": "Tiếp thị",
+            "operations": "Vận hành"
+          }
+        },
+        "priority": {
+          "label": "Mức độ ưu tiên",
+          "options": {
+            "low": "Thấp",
+            "medium": "Trung bình",
+            "high": "Cao",
+            "urgent": "Khẩn cấp"
+          }
+        },
+        "ownerName": {
+          "label": "Tên người phụ trách",
+          "placeholder": "Nguyễn Văn A"
+        },
+        "tags": {
+          "label": "Thẻ",
+          "placeholder": "ra-mat, quy-2, beta",
+          "hint": "Ngăn cách các thẻ bằng dấu phẩy"
+        },
+        "dueDate": {
+          "label": "Hạn hoàn thành",
+          "previousMonthLabel": "Tháng trước",
+          "nextMonthLabel": "Tháng sau"
+        },
+        "publishedAt": {
+          "label": "Thời điểm xuất bản"
+        },
+        "estimatedHours": {
+          "label": "Số giờ ước tính"
+        },
+        "progressPercent": {
+          "label": "Tiến độ (%)"
+        },
+        "attachmentsUrl": {
+          "label": "URL tệp đính kèm",
+          "placeholder": "https://example.com/tai-lieu.pdf"
+        },
+        "externalLink": {
+          "label": "Liên kết ngoài",
+          "placeholder": "https://example.com/du-an"
+        },
+        "notes": {
+          "label": "Ghi chú",
+          "placeholder": "Ghi chú triển khai bổ sung"
+        },
+        "isFeatured": {
+          "label": "Hiển thị nổi bật trên trang chủ"
+        },
+        "body": {
+          "label": "Nội dung",
+          "placeholder": "Nội dung chi tiết của thực thể"
+        }
+      }
+    },
+    "table": {
+      "loading": "Đang tải thực thể ví dụ...",
+      "empty": "Chưa có thực thể ví dụ nào.",
+      "toolbar": {
+        "searchLabel": "Tìm kiếm thực thể",
+        "searchPlaceholder": "Tìm theo tiêu đề, người phụ trách hoặc trạng thái",
+        "statusFilterLabel": "Lọc theo trạng thái",
+        "allStatusesLabel": "Tất cả trạng thái",
+        "rowsPerPageLabel": "Số dòng",
+        "previousPageLabel": "Trước",
+        "nextPageLabel": "Sau",
+        "pageStatusLabel": "Trang {currentPage} / {totalPages}",
+        "selectedCountLabel": "Đã chọn {count}",
+        "deselectAllLabel": "Bỏ chọn tất cả",
+        "selectAllRowsLabel": "Chọn tất cả các dòng",
+        "selectRowLabel": "Chọn dòng {rowIndex}",
+        "sortAscendingLabel": "Sắp xếp {columnId} tăng dần",
+        "sortDescendingLabel": "Sắp xếp {columnId} giảm dần",
+        "clearSortLabel": "Xóa sắp xếp cho {columnId}"
+      },
+      "columns": {
+        "title": "Tiêu đề",
+        "status": "Trạng thái",
+        "priority": "Ưu tiên",
+        "owner": "Người phụ trách",
+        "updated": "Cập nhật",
+        "actions": "Hành động"
+      },
+      "sortAria": {
+        "title": {
+          "asc": "Sắp xếp theo tiêu đề tăng dần",
+          "desc": "Sắp xếp theo tiêu đề giảm dần"
+        },
+        "updated": {
+          "asc": "Sắp xếp theo cập nhật tăng dần",
+          "desc": "Sắp xếp theo cập nhật giảm dần"
+        }
+      },
+      "actions": {
+        "view": "Xem",
+        "edit": "Sửa",
+        "delete": "Xóa"
+      },
+      "deleteModal": {
+        "title": "Xóa thực thể ví dụ?",
+        "description": "Bạn có chắc muốn xóa \"{title}\"? Hành động này không thể hoàn tác.",
+        "cancel": "Hủy",
+        "deleting": "Đang xóa..."
+      },
+      "bulkActions": {
+        "delete": "Xóa đã chọn",
+        "deleteSuccess": "Đã xóa {count} thực thể.",
+        "deleteModal": {
+          "title": "Xóa {count} thực thể đã chọn?",
+          "description": "Các thực thể này sẽ bị xóa vĩnh viễn."
+        }
+      }
+    },
+    "detail": {
+      "loading": "Đang tải thực thể ví dụ...",
+      "notFound": "Không tìm thấy thực thể ví dụ.",
+      "actions": {
+        "back": "Quay lại",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "deleting": "Đang xóa..."
+      },
+      "featured": "Nổi bật",
+      "owner": "Người phụ trách",
+      "slug": "Slug",
+      "progressPercent": "Tiến độ",
+      "estimatedHours": "Số giờ ước tính",
+      "createdAt": "Tạo lúc",
+      "updatedAtLabel": "Cập nhật",
+      "dueDate": "Hạn hoàn thành",
+      "publishedAt": "Thời điểm xuất bản",
+      "tags": "Thẻ",
+      "bodyLabel": "Nội dung",
+      "notes": "Ghi chú",
+      "externalLink": "Liên kết ngoài",
+      "attachments": "Tệp đính kèm",
+      "emptyValue": "-",
+      "noTags": "Không có thẻ",
+      "noNotes": "Không có ghi chú",
+      "noExternalLink": "Không có liên kết ngoài",
+      "noAttachments": "Không có tệp đính kèm",
+      "deleteModal": {
+        "title": "Xóa thực thể ví dụ?",
+        "description": "Bạn có chắc muốn xóa \"{title}\"? Hành động này không thể hoàn tác.",
+        "cancel": "Hủy",
+        "confirm": "Xóa",
+        "deleting": "Đang xóa...",
+        "close": "Đóng hộp thoại"
+      }
     }
   },
   "pages": {
+    "public": {
+      "landing": {
+        "title": "Mẫu Next.js Boilerplate",
+        "description": "Starter Next.js App Router đa ngôn ngữ với ví dụ dashboard CSR"
+      },
+      "solutions": {
+        "title": "Giải pháp",
+        "description": "Dùng trang này làm điểm khởi đầu đơn giản để mô tả các giải pháp chính."
+      },
+      "pricing": {
+        "title": "Bảng giá",
+        "description": "Bắt đầu với mẫu bảng giá gọn gàng và mở rộng dần theo gói dịch vụ của bạn."
+      },
+      "contact": {
+        "title": "Liên hệ",
+        "description": "Cung cấp thông tin liên hệ rõ ràng hoặc thay bằng biểu mẫu khách hàng tiềm năng."
+      }
+    },
+    "dashboard": {
+      "title": "Bảng điều khiển",
+      "description": "Bạn đang xem ngôn ngữ {locale}.",
+      "cards": {
+        "overview": {
+          "title": "Tổng quan",
+          "description": "Xem trạng thái tổng quát và hoạt động gần đây."
+        },
+        "exampleEntities": {
+          "title": "Thực thể ví dụ",
+          "description": "Quản lý thực thể mẫu với các thao tác tạo/đọc/cập nhật/xóa."
+        },
+        "providerSwitch": {
+          "title": "Chuyển provider",
+          "description": "Đổi provider dữ liệu qua cấu hình môi trường."
+        }
+      }
+    },
+    "settings": {
+      "title": "Cài đặt",
+      "description": "Quản lý tùy chọn bảng điều khiển của bạn.",
+      "appearance": {
+        "title": "Giao diện",
+        "description": "Chuyển đổi giữa giao diện sáng và tối."
+      }
+    },
+    "profile": {
+      "title": "Hồ sơ",
+      "description": "Quản lý thông tin hồ sơ công khai của bạn."
+    },
+    "exampleEntities": {
+      "title": "Thực thể ví dụ",
+      "createAction": "Tạo",
+      "description": "Quản lý bản ghi và theo dõi trạng thái CRUD từ nhà cung cấp dữ liệu."
+    },
+    "exampleEntitiesCreate": {
+      "title": "Tạo thực thể ví dụ",
+      "description": "Điền các trường bên dưới để tạo thực thể ví dụ mới."
+    },
+    "exampleEntitiesDetail": {
+      "title": "Chi tiết thực thể ví dụ",
+      "description": "Xem toàn bộ thông tin chi tiết của thực thể ví dụ này."
+    },
+    "exampleEntitiesEdit": {
+      "title": "Chỉnh sửa thực thể ví dụ",
+      "description": "Cập nhật các trường bên dưới cho thực thể ví dụ này."
+    },
+    "userManagement": {
+      "title": "Quản lý người dùng",
+      "description": "Quản lý vai trò, trạng thái và quyền truy cập người dùng trong bảng điều khiển.",
+      "empty": "Chưa có người dùng nào.",
+      "emptyFiltered": "Không tìm thấy người dùng phù hợp với bộ lọc hiện tại.",
+      "search": {
+        "label": "Tìm kiếm người dùng",
+        "placeholder": "Tìm theo email hoặc tên người dùng"
+      },
+      "actions": {
+        "changeRole": "Đổi vai trò",
+        "activate": "Kích hoạt",
+        "deactivate": "Vô hiệu hóa",
+        "activateSelected": "Kích hoạt mục đã chọn",
+        "deactivateSelected": "Vô hiệu hóa mục đã chọn"
+      },
+      "bulkActions": {
+        "confirmActivate": "Kích hoạt",
+        "confirmDeactivate": "Vô hiệu hóa",
+        "cancel": "Hủy",
+        "close": "Đóng hộp thoại",
+        "activateModal": {
+          "title": "Kích hoạt {count} người dùng đã chọn?",
+          "description": "Bạn có chắc muốn kích hoạt các người dùng đã chọn không?"
+        },
+        "deactivateModal": {
+          "title": "Vô hiệu hóa {count} người dùng đã chọn?",
+          "description": "Bạn có chắc muốn vô hiệu hóa các người dùng đã chọn không?"
+        },
+        "activateSingleModal": {
+          "title": "Kích hoạt người dùng này?",
+          "description": "Bạn có chắc muốn kích hoạt {email} ({username}) không?"
+        },
+        "deactivateSingleModal": {
+          "title": "Vô hiệu hóa người dùng này?",
+          "description": "Bạn có chắc muốn vô hiệu hóa {email} ({username}) không?"
+        }
+      },
+      "columns": {
+        "role": "Vai trò",
+        "status": "Trạng thái",
+        "actions": "Hành động"
+      },
+      "roles": {
+        "admin": "Quản trị viên",
+        "manager": "Quản lý",
+        "user": "Người dùng"
+      },
+      "status": {
+        "active": "Đang hoạt động",
+        "inactive": "Không hoạt động"
+      },
+      "filters": {
+        "allRoles": "Tất cả vai trò",
+        "allStatuses": "Tất cả trạng thái"
+      }
+    },
     "unauthorized": {
       "title": "Từ chối truy cập",
       "heading": "Bạn không có quyền",
