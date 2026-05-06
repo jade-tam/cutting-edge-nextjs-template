@@ -22,7 +22,7 @@ import { createFormSubmitHandler } from "@/lib/form/create-form-submit-handler";
 import { normalizeErrors } from "@/lib/form/normalize-errors";
 import { getAuthErrorTranslationKey } from "@/lib/toast/messages";
 
-export default function RegisterForm(): JSX.Element {
+export default function RegisterForm() {
   const t = useTranslations();
   const router = useRouter();
   const queryClient = useQueryClient();

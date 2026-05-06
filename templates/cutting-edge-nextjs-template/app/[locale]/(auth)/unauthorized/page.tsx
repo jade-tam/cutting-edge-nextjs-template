@@ -6,7 +6,7 @@ export default async function UnauthorizedPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<JSX.Element> {
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("pages.unauthorized");

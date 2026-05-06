@@ -39,7 +39,7 @@ export default function DatePickerField({
   disabled = false,
   previousMonthLabel = "Previous",
   nextMonthLabel = "Next",
-}: DatePickerFieldProps): JSX.Element {
+}: DatePickerFieldProps) {
   const id = useId().replaceAll(":", "");
   const triggerId = `date-picker-trigger-${id}`;
   const popoverId = `date-picker-popover-${id}`;

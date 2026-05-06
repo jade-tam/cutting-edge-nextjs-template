@@ -15,7 +15,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { getAuthErrorTranslationKey } from "@/lib/toast/messages";
 
-export default function ForgotPasswordForm(): JSX.Element {
+export default function ForgotPasswordForm() {
   const t = useTranslations();
 
   const translateErrors = (errors: unknown[]): string[] => {

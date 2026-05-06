@@ -19,7 +19,7 @@ import { createFormSubmitHandler } from "@/lib/form/create-form-submit-handler";
 import { normalizeErrors } from "@/lib/form/normalize-errors";
 import { getAuthErrorTranslationKey } from "@/lib/toast/messages";
 
-export default function LoginForm(): JSX.Element {
+export default function LoginForm() {
   const t = useTranslations();
   const router = useRouter();
   const queryClient = useQueryClient();
