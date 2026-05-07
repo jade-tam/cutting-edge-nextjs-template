@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.0](https://github.com/jade-tam/cutting-edge-nextjs-template/compare/v1.2.0...v1.3.0) (2026-05-07)
+
+
+### Features
+
+* increase cicd node ver ([fa712c4](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/fa712c48a2f21e36be6eceb270e24d0ba9041c82))
+* sync template ([3e43437](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/3e43437aba779ac97780737d51703d7f9f8783c5))
+
+
+### Bug Fixes
+
+* **ci:** allow required pnpm build dependencies ([6ab02ba](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/6ab02ba944dcfaa508f44f3548beb59bcc689328))
+* **ci:** stabilize pnpm setup and build-script policy ([6585283](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/658528337adbf5da1bd43468cea49e11e79b8f0d))
+* correct template file ([d9b9f45](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/d9b9f455cb14e375b2d4983e4e9ded64fb516ad3))
+* correct typescript errors ([247226e](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/247226eac64606b17f5cdbb2644edf61a565b617))
+* **template:** allow pnpm build scripts in generated app ([cceaa0b](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/cceaa0bb13bf6f1191d2ea12172ec7188988d2a0))
+* type errors ([3d2f000](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/3d2f00047fa3c5bb0ac1361b6346d6a7dd6de096))
+
 ## [1.2.0](https://github.com/jade-tam/cutting-edge-nextjs-template/compare/v1.1.1...v1.2.0) (2026-04-07)
 
 
