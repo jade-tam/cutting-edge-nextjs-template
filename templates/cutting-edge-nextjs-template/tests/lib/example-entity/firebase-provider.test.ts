@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const collection = vi.fn();
 const getDocs = vi.fn();
@@ -11,6 +11,28 @@ const doc = vi.fn();
 const firestoreInstance = { __type: "firestore" };
 const collectionRef = { __type: "collection" };
 
+const richInput = {
+  title: "Roadmap",
+  body: "Roadmap body",
+  slug: "roadmap-q3",
+  summary: "Q3 roadmap summary",
+  status: "draft" as const,
+  category: "product" as const,
+  tags: ["alpha", "beta"],
+  priority: "high" as const,
+  ownerName: "Jade",
+  dueDate: "2026-07-15",
+  isFeatured: true,
+  publishedAt: null,
+  estimatedHours: 24,
+  progressPercent: 45,
+  attachmentsUrl: ["https://example.com/a.pdf"],
+  externalLink: "https://example.com/roadmap",
+  notes: "Needs review",
+};
+
+const getFirestore = vi.fn(() => firestoreInstance);
+
 vi.mock("firebase/firestore", () => ({
   collection,
   getDocs,
@@ -19,14 +41,39 @@ vi.mock("firebase/firestore", () => ({
   updateDoc,
   deleteDoc,
   doc,
+  getFirestore,
+  connectFirestoreEmulator: vi.fn(),
 }));
 
-vi.mock("@/lib/firebase/client", () => ({
-  getFirebaseFirestore: vi.fn(() => firestoreInstance),
+vi.mock("firebase/app", () => ({
+  getApps: vi.fn(() => [{ name: "app" }]),
+  getApp: vi.fn(() => ({ name: "app" })),
+  initializeApp: vi.fn(() => ({ name: "app" })),
+}));
+
+vi.mock("firebase/auth", () => ({
+  getAuth: vi.fn(() => ({ __type: "auth" })),
+  connectAuthEmulator: vi.fn(),
+}));
+
+vi.mock("firebase/storage", () => ({
+  getStorage: vi.fn(() => ({ __type: "storage" })),
+  connectStorageEmulator: vi.fn(),
 }));
 
 describe("firebase example-entity provider", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
   beforeEach(() => {
+    vi.stubEnv("DATA_PROVIDER", "firebase");
+    vi.stubEnv("AUTH_COOKIE_NAME", "dashboard_session");
+    vi.stubEnv("FIREBASE_API_KEY", "firebase-api-key");
+    vi.stubEnv("FIREBASE_AUTH_DOMAIN", "demo.firebaseapp.com");
+    vi.stubEnv("FIREBASE_PROJECT_ID", "demo-project");
+    vi.stubEnv("FIREBASE_APP_ID", "1:1234567890:web:abcdef");
+    vi.stubEnv("USE_FIREBASE_EMULATOR", "true");
     vi.clearAllMocks();
     collection.mockReturnValue(collectionRef);
     doc.mockImplementation((_db, _name, id) => ({ id }));
@@ -38,8 +85,7 @@ describe("firebase example-entity provider", () => {
         {
           id: "id-1",
           data: () => ({
-            title: "Title",
-            body: "Body",
+            ...richInput,
             createdAt: "2026-04-06T00:00:00.000Z",
             updatedAt: "2026-04-06T00:00:00.000Z",
           }),
@@ -48,7 +94,7 @@ describe("firebase example-entity provider", () => {
     });
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
     const result = await createFirebaseExampleEntityProvider().list();
@@ -57,8 +103,7 @@ describe("firebase example-entity provider", () => {
     expect(result).toEqual([
       {
         id: "id-1",
-        title: "Title",
-        body: "Body",
+        ...richInput,
         createdAt: "2026-04-06T00:00:00.000Z",
         updatedAt: "2026-04-06T00:00:00.000Z",
       },
@@ -70,31 +115,52 @@ describe("firebase example-entity provider", () => {
       id: "id-1",
       exists: () => true,
       data: () => ({
-        title: "Title",
-        body: "Body",
+        ...richInput,
         createdAt: "2026-04-06T00:00:00.000Z",
         updatedAt: "2026-04-06T00:00:00.000Z",
       }),
     });
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
     await expect(createFirebaseExampleEntityProvider().get("id-1")).resolves.toEqual({
       id: "id-1",
-      title: "Title",
-      body: "Body",
+      ...richInput,
       createdAt: "2026-04-06T00:00:00.000Z",
       updatedAt: "2026-04-06T00:00:00.000Z",
     });
+  });
+
+  it("normalizes rich entity fields from adapter responses", async () => {
+    getDoc.mockResolvedValueOnce({
+      id: "entity-1",
+      exists: () => true,
+      data: () => ({
+        ...richInput,
+        createdAt: "2026-04-06T00:00:00.000Z",
+        updatedAt: "2026-04-06T00:00:00.000Z",
+      }),
+    });
+
+    const { createFirebaseExampleEntityProvider } = await import(
+      "@/lib/example-entity/adapters/firebase"
+    );
+
+    const entity = await createFirebaseExampleEntityProvider().get("entity-1");
+
+    expect(entity?.status).toBe("draft");
+    expect(entity?.tags).toEqual(["alpha", "beta"]);
+    expect(entity?.progressPercent).toBe(45);
+    expect(entity?.attachmentsUrl).toContain("https://example.com/a.pdf");
   });
 
   it("get returns null when doc does not exist", async () => {
     getDoc.mockResolvedValueOnce({ exists: () => false });
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
     await expect(createFirebaseExampleEntityProvider().get("missing")).resolves.toBeNull();
@@ -104,25 +170,18 @@ describe("firebase example-entity provider", () => {
     addDoc.mockResolvedValueOnce({ id: "id-new" });
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
-    const result = await createFirebaseExampleEntityProvider().create({
-      title: "New Title",
-      body: "New Body",
-    });
+    const result = await createFirebaseExampleEntityProvider().create(richInput);
 
     expect(addDoc).toHaveBeenCalledWith(
       collectionRef,
-      expect.objectContaining({
-        title: "New Title",
-        body: "New Body",
-      }),
+      expect.objectContaining(richInput),
     );
     expect(result).toEqual({
       id: "id-new",
-      title: "New Title",
-      body: "New Body",
+      ...richInput,
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     });
@@ -138,25 +197,18 @@ describe("firebase example-entity provider", () => {
     updateDoc.mockResolvedValueOnce(undefined);
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
-    const result = await createFirebaseExampleEntityProvider().update("id-1", {
-      title: "Updated",
-      body: "Updated body",
-    });
+    const result = await createFirebaseExampleEntityProvider().update("id-1", richInput);
 
     expect(updateDoc).toHaveBeenCalledWith(
       { id: "id-1" },
-      expect.objectContaining({
-        title: "Updated",
-        body: "Updated body",
-      }),
+      expect.objectContaining(richInput),
     );
     expect(result).toEqual({
       id: "id-1",
-      title: "Updated",
-      body: "Updated body",
+      ...richInput,
       createdAt: "2026-04-01T00:00:00.000Z",
       updatedAt: expect.any(String),
     });
@@ -167,7 +219,7 @@ describe("firebase example-entity provider", () => {
     deleteDoc.mockResolvedValueOnce(undefined);
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
     await expect(createFirebaseExampleEntityProvider().remove("id-1")).resolves.toEqual({
@@ -180,7 +232,7 @@ describe("firebase example-entity provider", () => {
     getDoc.mockResolvedValueOnce({ exists: () => false });
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
     await expect(createFirebaseExampleEntityProvider().remove("missing")).rejects.toMatchObject({
@@ -192,7 +244,7 @@ describe("firebase example-entity provider", () => {
     getDocs.mockRejectedValueOnce({ code: "firestore/unavailable" });
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
     await expect(createFirebaseExampleEntityProvider().list()).rejects.toMatchObject({
@@ -215,7 +267,7 @@ describe("firebase example-entity provider", () => {
     });
 
     const { createFirebaseExampleEntityProvider } = await import(
-      "@/lib/example-entity/providers/firebase"
+      "@/lib/example-entity/adapters/firebase"
     );
 
     await expect(createFirebaseExampleEntityProvider().list()).rejects.toMatchObject({

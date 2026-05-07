@@ -7,7 +7,7 @@ import { registerSchema } from "../../../features/auth/schemas/register-schema";
 function expectIssueMessage(parsed: { success: boolean; error?: { issues: Array<{ message: string }> } }, message: string) {
   expect(parsed.success).toBe(false);
 
-  if (!parsed.success) {
+  if (!parsed.success && parsed.error) {
     expect(parsed.error.issues.map((issue) => issue.message)).toContain(message);
   }
 }
@@ -73,6 +73,7 @@ describe("auth schemas", () => {
         username: "  Ada_User  ",
         email: "  USER@Example.COM  ",
         password: "Sup3r!SecurePass",
+        confirmPassword: "Sup3r!SecurePass",
       });
 
       expect(parsed.success).toBe(true);
@@ -89,6 +90,7 @@ describe("auth schemas", () => {
         username: "ab",
         email: "ada@example.com",
         password: "Sup3r!SecurePass",
+        confirmPassword: "Sup3r!SecurePass",
       });
       expectIssueMessage(tooShort, "validation.username.tooShort");
 
@@ -97,6 +99,7 @@ describe("auth schemas", () => {
         username: "a".repeat(31),
         email: "ada@example.com",
         password: "Sup3r!SecurePass",
+        confirmPassword: "Sup3r!SecurePass",
       });
       expectIssueMessage(tooLong, "validation.username.tooLong");
 
@@ -105,6 +108,7 @@ describe("auth schemas", () => {
         username: "ada-user",
         email: "ada@example.com",
         password: "Sup3r!SecurePass",
+        confirmPassword: "Sup3r!SecurePass",
       });
       expectIssueMessage(invalidFormat, "validation.username.invalidFormat");
     });
@@ -114,6 +118,7 @@ describe("auth schemas", () => {
         fullName: "Ada",
         email: "ada@example.com",
         password: "Sup3r!SecurePass",
+        confirmPassword: "Sup3r!SecurePass",
       });
 
       expect(parsed.success).toBe(false);
@@ -125,6 +130,7 @@ describe("auth schemas", () => {
         username: "Ada_123",
         email: "ada@example.com",
         password: "Sup3r!SecurePass",
+        confirmPassword: "Sup3r!SecurePass",
       });
 
       expect(parsed.success).toBe(true);
@@ -147,6 +153,7 @@ describe("auth schemas", () => {
         username: "ada_lovelace",
         email: "ada@example.com",
         password: "Sup3r!SecurePass",
+        confirmPassword: "Sup3r!SecurePass",
       });
 
       expect(parsed.success).toBe(true);
@@ -167,6 +174,7 @@ describe("auth schemas", () => {
           username: "ada_user",
           email: "ada@example.com",
           password: "Aa1!aaaaaaaa",
+          confirmPassword: "Aa1!aaaaaaaa",
         }).success,
       ).toBe(true);
 
@@ -176,6 +184,7 @@ describe("auth schemas", () => {
           username: "ada_user",
           email: "ada@example.com",
           password: `Aa1!${"a".repeat(124)}`,
+          confirmPassword: `Aa1!${"a".repeat(124)}`,
         }).success,
       ).toBe(true);
 

@@ -13,6 +13,13 @@ const AUTH_ERROR_TRANSLATION_KEYS = {
   user_profile_not_found: "apiErrors.auth.user_profile_not_found",
   user_profile_create_failed: "apiErrors.auth.user_profile_create_failed",
   user_profile_update_failed: "apiErrors.auth.user_profile_update_failed",
+  cannot_update_self_role: "apiErrors.auth.cannot_update_self_role",
+  cannot_deactivate_self: "apiErrors.auth.cannot_deactivate_self",
+  not_implemented: "apiErrors.auth.not_implemented",
+  invalid_file_type: "apiErrors.auth.invalid_file_type",
+  file_too_large: "apiErrors.auth.file_too_large",
+  upload_failed: "apiErrors.auth.upload_failed",
+  unauthorized: "apiErrors.auth.unauthorized",
   invalid_request: "apiErrors.common.invalid_request",
   request_failed: "apiErrors.common.request_failed",
 } as const;
@@ -25,6 +32,7 @@ const EXAMPLE_ENTITY_ERROR_TRANSLATION_KEYS = {
   contract_error: "apiErrors.exampleEntity.contract_error",
   upstream_error: "apiErrors.exampleEntity.upstream_error",
   network_error: "apiErrors.exampleEntity.network_error",
+  permission_denied: "apiErrors.exampleEntity.permission_denied",
   example_entity_request_failed: "apiErrors.exampleEntity.example_entity_request_failed",
   invalid_request: "apiErrors.common.invalid_request",
   request_failed: "apiErrors.common.request_failed",
@@ -32,7 +40,11 @@ const EXAMPLE_ENTITY_ERROR_TRANSLATION_KEYS = {
 
 export function getAuthErrorTranslationKey(
   errorCode: string | undefined,
-  fallbackKey: "toast.auth.signInFailed" | "toast.auth.registerFailed" | "toast.auth.forgotPasswordFailed",
+  fallbackKey:
+    | "toast.auth.signInFailed"
+    | "toast.auth.registerFailed"
+    | "toast.auth.forgotPasswordFailed"
+    | "toast.auth.profileUpdateFailed",
 ) {
   return AUTH_ERROR_TRANSLATION_KEYS[errorCode as keyof typeof AUTH_ERROR_TRANSLATION_KEYS] ?? fallbackKey;
 }

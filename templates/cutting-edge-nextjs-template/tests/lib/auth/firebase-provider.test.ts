@@ -3,10 +3,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 function stubFirebaseEnv() {
   vi.stubEnv("DATA_PROVIDER", "firebase");
   vi.stubEnv("AUTH_COOKIE_NAME", "dashboard_session");
+  vi.stubEnv("NEXT_PUBLIC_BASE_URL", "http://localhost:3000");
+  vi.stubEnv("NEXT_PUBLIC_API_BASE_URL", "http://localhost:3001/api");
   vi.stubEnv("FIREBASE_API_KEY", "firebase-api-key");
   vi.stubEnv("FIREBASE_AUTH_DOMAIN", "demo.firebaseapp.com");
   vi.stubEnv("FIREBASE_PROJECT_ID", "demo-project");
   vi.stubEnv("FIREBASE_APP_ID", "1:1234567890:web:abcdef");
+  vi.stubEnv("USE_FIREBASE_EMULATOR", "true");
 }
 
 const authInstance = { __type: "auth" };
@@ -28,11 +31,16 @@ const getDocs = vi.fn();
 const collection = vi.fn();
 const serverTimestamp = vi.fn(() => "server-timestamp");
 
+const getAuth = vi.fn(() => authInstance);
+const getFirestore = vi.fn(() => firestoreInstance);
+
 vi.mock("firebase/auth", () => ({
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   updateProfile,
+  getAuth,
+  connectAuthEmulator: vi.fn(),
 }));
 
 vi.mock("firebase/firestore", () => ({
@@ -45,11 +53,19 @@ vi.mock("firebase/firestore", () => ({
   getDocs,
   collection,
   serverTimestamp,
+  getFirestore,
+  connectFirestoreEmulator: vi.fn(),
 }));
 
-vi.mock("@/lib/firebase/client", () => ({
-  getFirebaseAuth: vi.fn(() => authInstance),
-  getFirebaseFirestore: vi.fn(() => firestoreInstance),
+vi.mock("firebase/app", () => ({
+  getApps: vi.fn(() => [{ name: "app" }]),
+  getApp: vi.fn(() => ({ name: "app" })),
+  initializeApp: vi.fn(() => ({ name: "app" })),
+}));
+
+vi.mock("firebase/storage", () => ({
+  getStorage: vi.fn(() => ({ __type: "storage" })),
+  connectStorageEmulator: vi.fn(),
 }));
 
 describe("firebase auth provider", () => {
@@ -141,7 +157,7 @@ describe("firebase auth provider", () => {
         }),
       });
 
-    const { createFirebaseAuthProvider } = await import("@/lib/auth/providers/firebase");
+    const { createFirebaseAuthProvider } = await import("@/lib/auth/adapters/firebase");
     const result = await createFirebaseAuthProvider().login({
       email: "user@example.com",
       password: "Password1!",
@@ -182,7 +198,7 @@ describe("firebase auth provider", () => {
       }),
     });
 
-    const { createFirebaseAuthProvider } = await import("@/lib/auth/providers/firebase");
+    const { createFirebaseAuthProvider } = await import("@/lib/auth/adapters/firebase");
 
     await expect(
       createFirebaseAuthProvider().login({
@@ -217,7 +233,7 @@ describe("firebase auth provider", () => {
       docs: [{ id: "uid-2" }],
     });
 
-    const { createFirebaseAuthProvider } = await import("@/lib/auth/providers/firebase");
+    const { createFirebaseAuthProvider } = await import("@/lib/auth/adapters/firebase");
 
     await expect(
       createFirebaseAuthProvider().updateUserProfile("uid-1", { username: "taken_name" }),
@@ -229,7 +245,7 @@ describe("firebase auth provider", () => {
       code: "auth/email-already-in-use",
     });
 
-    const { createFirebaseAuthProvider } = await import("@/lib/auth/providers/firebase");
+    const { createFirebaseAuthProvider } = await import("@/lib/auth/adapters/firebase");
 
     await expect(
       createFirebaseAuthProvider().register({
@@ -261,7 +277,7 @@ describe("firebase auth provider", () => {
       docs: [{ id: "uid-2" }],
     });
 
-    const { createFirebaseAuthProvider } = await import("@/lib/auth/providers/firebase");
+    const { createFirebaseAuthProvider } = await import("@/lib/auth/adapters/firebase");
 
     await expect(
       createFirebaseAuthProvider().register({
@@ -302,7 +318,7 @@ describe("firebase auth provider", () => {
       }),
     });
 
-    const { createFirebaseAuthProvider } = await import("@/lib/auth/providers/firebase");
+    const { createFirebaseAuthProvider } = await import("@/lib/auth/adapters/firebase");
 
     await expect(createFirebaseAuthProvider().getSession("token-1")).resolves.toEqual({
       userId: "uid-1",
@@ -327,7 +343,7 @@ describe("firebase auth provider", () => {
       }),
     });
 
-    const { createFirebaseAuthProvider } = await import("@/lib/auth/providers/firebase");
+    const { createFirebaseAuthProvider } = await import("@/lib/auth/adapters/firebase");
 
     await expect(createFirebaseAuthProvider().getSession("bad-token")).resolves.toBeNull();
   });

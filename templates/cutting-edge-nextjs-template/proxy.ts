@@ -9,6 +9,8 @@ const intlMiddleware = createMiddleware(routing);
 const AUTH_ROUTES = ["/login", "/register", "/forgot-password"];
 const LOCALES = new Set<string>(routing.locales);
 const DASHBOARD_ALLOWED_ROLES = new Set(["admin", "manager"]);
+const USERS_DASHBOARD_ROUTE = "/dashboard/users";
+const USERS_DASHBOARD_ALLOWED_ROLES = new Set(["admin"]);
 
 function stripLocalePrefix(pathname: string) {
   const segments = pathname.split("/").filter(Boolean);
@@ -80,7 +82,13 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(redirectUrl);
     }
 
-    if (!DASHBOARD_ALLOWED_ROLES.has(session.role ?? "")) {
+    const role = session.role ?? "";
+    const isUsersDashboardRoute = routePath === USERS_DASHBOARD_ROUTE;
+    const hasAccess = isUsersDashboardRoute
+      ? USERS_DASHBOARD_ALLOWED_ROLES.has(role)
+      : DASHBOARD_ALLOWED_ROLES.has(role);
+
+    if (!hasAccess) {
       const redirectUrl = request.nextUrl.clone();
       redirectUrl.pathname = withLocalePrefix(localePrefix, "/unauthorized");
       return NextResponse.redirect(redirectUrl);

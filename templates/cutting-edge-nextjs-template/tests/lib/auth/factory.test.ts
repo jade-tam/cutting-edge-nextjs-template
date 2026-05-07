@@ -8,6 +8,8 @@ async function loadFactoryModule() {
 function stubFirebaseEnv() {
   vi.stubEnv("DATA_PROVIDER", "firebase");
   vi.stubEnv("AUTH_COOKIE_NAME", "dashboard_session");
+  vi.stubEnv("NEXT_PUBLIC_BASE_URL", "http://localhost:3000");
+  vi.stubEnv("NEXT_PUBLIC_API_BASE_URL", "http://localhost:3001/api");
   vi.stubEnv("FIREBASE_API_KEY", "firebase-api-key");
   vi.stubEnv("FIREBASE_AUTH_DOMAIN", "demo.firebaseapp.com");
   vi.stubEnv("FIREBASE_PROJECT_ID", "demo-project");

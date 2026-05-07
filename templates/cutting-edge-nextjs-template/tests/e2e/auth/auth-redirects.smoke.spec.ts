@@ -5,7 +5,7 @@ test.describe("auth redirects smoke", () => {
     await page.goto("/dashboard");
 
     await expect(page).toHaveURL(/\/login$/);
-    await expect(page.getByRole("heading", { name: "Sign in" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Sign in" })).toBeVisible();
   });
 
   test("unauthenticated localized dashboard access redirects to localized login", async ({ page }) => {

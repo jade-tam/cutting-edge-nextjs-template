@@ -1,10 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("@/lib/firebase/client", () => ({
-  getFirebaseFirestore: vi.fn(() => ({ __type: "firestore" })),
-}));
-
 vi.mock("firebase/firestore", () => ({
+  connectFirestoreEmulator: vi.fn(),
+  getFirestore: vi.fn(() => ({ __type: "firestore" })),
   collection: vi.fn(() => ({ __type: "collection" })),
   getDocs: vi.fn(),
   getDoc: vi.fn(),
@@ -12,6 +10,12 @@ vi.mock("firebase/firestore", () => ({
   updateDoc: vi.fn(),
   deleteDoc: vi.fn(),
   doc: vi.fn(),
+}));
+
+vi.mock("firebase/app", () => ({
+  getApps: vi.fn(() => []),
+  getApp: vi.fn(),
+  initializeApp: vi.fn(() => ({ __type: "app" })),
 }));
 
 async function loadFactoryModule() {

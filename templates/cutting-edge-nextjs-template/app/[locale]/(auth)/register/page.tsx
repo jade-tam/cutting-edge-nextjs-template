@@ -10,7 +10,7 @@ export default async function RegisterPage({
   setRequestLocale(locale);
 
   return (
-    <section className="mx-auto max-w-md py-10">
+    <section className="mx-auto max-w-md px-2 py-10 sm:px-0">
       <RegisterForm />
     </section>
   );

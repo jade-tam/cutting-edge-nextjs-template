@@ -34,7 +34,15 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "rolldown"
+      "rolldown",
+      "@firebase/util",
+      "@parcel/watcher",
+      "@swc/core",
+      "core-js-pure",
+      "esbuild",
+      "protobufjs",
+      "sharp",
+      "unrs-resolver"
     ]
   }
 }

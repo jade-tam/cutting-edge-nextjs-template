@@ -1,18 +1,27 @@
-import { setRequestLocale } from "next-intl/server";
+"use client";
 
+import { use } from "react";
+import { useTranslations } from "next-intl";
+
+import { DashboardPageShell } from "@/features/dashboard/components/dashboard-page-shell";
 import ExampleEntityEditScreen from "@/features/example-entity/components/example-entity-edit-screen";
 
-export default async function EditExampleEntityPage({
+export default function EditExampleEntityPage({
   params,
 }: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const { locale, id } = await params;
-  setRequestLocale(locale);
+  const t = useTranslations();
+  const { id } = use(params);
 
   return (
-    <section className="mx-auto max-w-3xl space-y-4">
-      <ExampleEntityEditScreen id={id} />
-    </section>
+    <DashboardPageShell
+      title={t("pages.exampleEntitiesEdit.title")}
+      description={t("pages.exampleEntitiesEdit.description")}
+    >
+      <section className="mx-auto w-full max-w-7xl">
+        <ExampleEntityEditScreen id={id} />
+      </section>
+    </DashboardPageShell>
   );
 }

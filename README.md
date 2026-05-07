@@ -25,7 +25,7 @@ Not just popular ones, but the *right* ones. Each was chosen after evaluating th
 Every integration is set up correctly from the start, following current best practices rather than what an AI trained on last year's code thinks is correct.
 
 ### 🚀 Covers real-world needs
-Marketing pages with SEO, content routes, and CSR dashboard patterns. Not a toy "Hello World" but an architecture you'd actually build a product on.
+Marketing/public pages with SEO plus CSR dashboard patterns. Not a toy "Hello World" but an architecture you'd actually build a product on.
 
 ### 🤖 AI-ready from day one
 Ships with explicit project structure rules (`CLAUDE.md`, `docs/project-structure.md`) so AI assistants can place code consistently and follow your conventions without constant correction.
@@ -50,22 +50,29 @@ Ships with explicit project structure rules (`CLAUDE.md`, `docs/project-structur
 - Next.js 16 App Router with React 19 and TypeScript strict mode
 - Tailwind CSS 4 + DaisyUI preconfigured with PostCSS
 - `next-intl` locale routing (`en`, `vi`) with route groups for clean URLs
-- SEO baseline: `generateMetadata`, `sitemap.xml`, `robots.txt`, favicon
-- CSR dashboard examples using TanStack Query + TanStack Form + Zod
+- Production-ready SEO setup: centralized SEO config, metadata helpers, `sitemap.xml`, `robots.txt`, social images
+- React View Transitions-based page transition shell with configurable transition presets
+- Modern marketing/public experience: redesigned navbar and refreshed public pages (home, pricing, solutions, contact)
+- Pure CSR dashboard architecture with role-aware navigation and client bootstrap boundaries
+- Admin user management module with table UX, role/status mutations, and bulk actions
+- Profile settings and avatar management flows (upload, optimize, delete)
+- Rich example entity CRUD module with improved data table UX patterns
 - Storybook configured with `@storybook/nextjs` framework
 - React Compiler enabled in `next.config.ts`
 - Project structure documentation and AI contributor contract (`CLAUDE.md`)
 - Env/logger conventions (`lib/env/*`, `lib/logger/*`) for safer changes
+- Extensive unit/integration/e2e coverage across auth, SEO, transitions, dashboard, entities, and user management
 
 ## Architecture
 
 The template uses Next.js App Router with route groups for clear boundaries:
 
-- **(marketing)** — landing page, public content with SEO
-- **(content)** — product, blog pages etc
-- **(dashboard)** — CSR management UI with TanStack Query patterns
+- **(marketing)** — branded landing and campaign-oriented presentation pages
+- **(public)** — public business pages (pricing, solutions, contact)
+- **(auth)** — authentication and access-control pages
+- **(dashboard)** — pure CSR management UI with role-aware shell, transitions, and TanStack Query patterns
 
-Route groups are organizational only. URLs stay clean: `/`, `/about`, `/blog`, `/dashboard`.
+Route groups are organizational only. URLs stay clean: `/`, `/pricing`, `/solutions`, `/contact`, `/dashboard`.
 
 ## Generated app structure
 
@@ -74,13 +81,23 @@ app/
   [locale]/
     (marketing)/
       page.tsx
-    (content)/
-      about/page.tsx
-      blog/page.tsx
-      blog/[slug]/page.tsx
+    (public)/
+      pricing/page.tsx
+      solutions/page.tsx
+      contact/page.tsx
+    (auth)/
+      login/page.tsx
+      register/page.tsx
+      forgot-password/page.tsx
     (dashboard)/
       dashboard/page.tsx
+      dashboard/users/page.tsx
+      dashboard/profile/page.tsx
+      dashboard/settings/page.tsx
 components/
+features/
+lib/
+config/
 i18n/
 messages/
 providers/

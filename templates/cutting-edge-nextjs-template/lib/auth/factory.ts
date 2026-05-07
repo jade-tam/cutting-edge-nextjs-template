@@ -1,6 +1,6 @@
 import type { AuthProvider } from "./contracts";
-import { createFirebaseAuthProvider } from "./providers/firebase";
-import { createRestAuthProvider } from "./providers/rest";
+import { createFirebaseAuthProvider } from "./adapters/firebase";
+import { createRestAuthProvider } from "./adapters/rest";
 import { serverEnv } from "../env/server";
 
 export function createAuthProvider(): AuthProvider {

@@ -1,8 +1,29 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import type { ExampleEntityInput } from "@/lib/example-entity/types";
+
+const exampleEntityInput: ExampleEntityInput = {
+  title: "t",
+  body: "b",
+  slug: "test-slug",
+  summary: "summary",
+  status: "draft",
+  category: "product",
+  tags: [],
+  priority: "medium",
+  ownerName: "owner",
+  dueDate: null,
+  isFeatured: false,
+  publishedAt: null,
+  estimatedHours: null,
+  progressPercent: 0,
+  attachmentsUrl: [],
+  externalLink: null,
+  notes: "",
+};
 
 async function loadRestProviderModule() {
   vi.resetModules();
-  return import("../../../lib/example-entity/providers/rest");
+  return import("../../../lib/example-entity/adapters/rest");
 }
 
 afterEach(() => {
@@ -40,7 +61,7 @@ describe("rest example-entity provider error translation", () => {
     const provider = createRestExampleEntityProvider();
 
     await expect(
-      provider.update("id-1", { title: "t", body: "b" }),
+      provider.update("id-1", exampleEntityInput),
     ).rejects.toMatchObject({
       name: "ExampleEntityError",
       code: "not_found",
@@ -59,7 +80,7 @@ describe("rest example-entity provider error translation", () => {
     const { createRestExampleEntityProvider } = await loadRestProviderModule();
     const provider = createRestExampleEntityProvider();
 
-    await expect(provider.create({ title: "t", body: "b" })).rejects.toMatchObject({
+    await expect(provider.create(exampleEntityInput)).rejects.toMatchObject({
       name: "ExampleEntityError",
       code: "client_error",
     });
@@ -79,7 +100,7 @@ describe("rest example-entity provider error translation", () => {
     const { createRestExampleEntityProvider } = await loadRestProviderModule();
     const provider = createRestExampleEntityProvider();
 
-    await expect(provider.create({ title: "t", body: "b" })).rejects.toMatchObject({
+    await expect(provider.create(exampleEntityInput)).rejects.toMatchObject({
       name: "ExampleEntityError",
       code: "contract_error",
     });

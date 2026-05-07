@@ -5,7 +5,7 @@ test.describe("auth form validation smoke", () => {
     await page.goto("/login");
 
     await page.getByLabel("Email").fill("not-an-email");
-    await page.getByLabel("Password").fill("ValidPass123!");
+    await page.getByLabel("Password", { exact: true }).fill("ValidPass123!");
     await page.getByRole("button", { name: "Sign in" }).click();
 
     await expect(page).toHaveURL(/\/login$/);
@@ -16,7 +16,7 @@ test.describe("auth form validation smoke", () => {
 
     await page.getByLabel("Full name").fill("Test User");
     await page.getByLabel("Email").fill("test@example.com");
-    await page.getByLabel("Password").fill("short");
+    await page.getByLabel("Password", { exact: true }).fill("short");
     await page.getByRole("button", { name: "Create account" }).click();
 
     await expect(page).toHaveURL(/\/register$/);

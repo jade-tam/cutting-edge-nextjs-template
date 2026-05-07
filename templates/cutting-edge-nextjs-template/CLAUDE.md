@@ -58,6 +58,30 @@ Forbidden:
 - No ad-hoc `useState` form orchestration for those forms
 - Provider selection must come from `DATA_PROVIDER` via `lib/env/*`
 
+## Form UX rules (required)
+- Inputs must render with a visible label above the input field (do not rely on placeholder as label)
+- Input icons should be rendered inside the input wrapper when icon affordance is used
+- Use Fluent icon classes (`icon-[fluent--... ]`) for form iconography consistency
+- Placeholders must be example values (e.g. `john@example.com`, `JohnDoe123`), not instructional text (e.g. `Enter your email`)
+- Keep repeated input/error UI logic DRY through shared form primitives instead of per-form duplication
+
+## DRY architecture rules (required)
+- Extract shared logic when the same pattern appears in 3+ places.
+- Shared form utilities must live in `lib/form/*` (error normalization, field error timing, submit handlers).
+- Before adding new form logic, check existing auth/example-entity forms for reusable patterns.
+- Keep shared utilities dependency-light and pass context (e.g., translator functions) as parameters.
+- Prefer extending shared form primitives over duplicating per-form field/error rendering code.
+
+## Data Table Implementation Rules (required)
+- All dashboard CRUD list pages must use the shared data table building blocks under `components/data-table/*` and feature composition in `features/example-entity/components/*` before introducing new table primitives.
+- Keep table UIs provider-agnostic: fetch/mutation logic belongs in feature hooks with TanStack Query, while columns/cells/actions receive typed domain data only.
+- Column definitions must be centralized and typed (for example, `ColumnDef<T>`), including sorting/filter metadata where supported.
+- Table toolbar features (search, filters, column visibility, bulk actions) must be composed from reusable controls, not one-off per-page implementations.
+- Empty/loading/error states must be explicit, localized with `next-intl`, and visually consistent with existing dashboard table states.
+- Row-level and bulk destructive actions must use explicit confirmation UI and must map API error codes through `lib/toast/messages.ts`.
+- Table forms used for create/update flows must follow TanStack Form + Zod contracts and shared form primitives; do not add ad-hoc form state logic in table pages.
+- New table workflows must include Vitest coverage for state/logic and Playwright coverage for critical CRUD paths when behavior changes.
+
 ## Multi-adapter architecture rules (required)
 - Keep feature/UI code provider-agnostic
 - Domain contracts:
@@ -66,7 +90,7 @@ Forbidden:
 - Adapter selection only in factories:
   - `lib/auth/factory.ts`
   - `lib/example-entity/factory.ts`
-- Adapters live in `lib/<domain>/providers/<provider>.ts`
+- Adapters live in `lib/<domain>/adapters/<provider>.ts`
 - Do not import provider SDK logic directly in `features/*` or `app/*`
 - Normalize provider responses to shared domain types and throw domain errors
 
@@ -121,12 +145,12 @@ Firestore permission enforcement for example-entity CRUD must stay in rules + AP
 
 Auth/session contract must keep `session.role` populated.
 ## Firebase env requirements (required when `DATA_PROVIDER=firebase`)
-- `FIREBASE_API_KEY`
-- `FIREBASE_AUTH_DOMAIN`
-- `FIREBASE_PROJECT_ID`
-- `FIREBASE_APP_ID`
+- `NEXT_PUBLIC_FIREBASE_API_KEY`
+- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+- `NEXT_PUBLIC_FIREBASE_APP_ID`
 
-Validate via `lib/env/schema.ts`; consume via `lib/env/server.ts`.
+Validate via `lib/env/schema.ts`; consume via `lib/env/client.ts` for client SDK usage and `lib/env/server.ts` for server auth/session flows.
 
 ## API error + i18n + toast rules (required)
 - API routes must return stable machine-readable error codes: `{ error: <code> }`
@@ -180,6 +204,11 @@ For each new provider:
 8. Keep UI/provider-agnostic behavior intact
 9. Update docs status
 10. Run lint/tests
+
+## Subagent test execution boundary (required)
+- In `.claude/worktrees/*` agent-isolated sessions, do not run `pnpm lint`, `pnpm test`, or `pnpm test:e2e*`.
+- Use agent-isolated worktrees for code changes/research only.
+- Run all verification commands from the main workspace or user-managed `.worktrees/*`.
 
 ## Definition of done
 - Correct code placement by ownership rules

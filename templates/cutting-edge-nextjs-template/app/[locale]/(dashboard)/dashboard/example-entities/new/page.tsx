@@ -1,18 +1,21 @@
-import { setRequestLocale } from "next-intl/server";
+"use client";
 
+import { useTranslations } from "next-intl";
+
+import { DashboardPageShell } from "@/features/dashboard/components/dashboard-page-shell";
 import ExampleEntityForm from "@/features/example-entity/components/example-entity-form";
 
-export default async function NewExampleEntityPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default function NewExampleEntityPage() {
+  const t = useTranslations();
 
   return (
-    <section className="mx-auto max-w-3xl space-y-4">
-      <ExampleEntityForm mode="create" />
-    </section>
+    <DashboardPageShell
+      title={t("pages.exampleEntitiesCreate.title")}
+      description={t("pages.exampleEntitiesCreate.description")}
+    >
+      <section className="mx-auto w-full max-w-7xl">
+        <ExampleEntityForm mode="create" />
+      </section>
+    </DashboardPageShell>
   );
 }

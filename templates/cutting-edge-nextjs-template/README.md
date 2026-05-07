@@ -13,6 +13,7 @@ A locale-ready Next.js App Router starter with a protected CSR dashboard, auth +
 - REST + Firebase providers implemented for auth + example-entity
 - Sonner toasts (added 2026-04-06), themed with DaisyUI and i18n-aware API error mapping
 - SEO baseline (`generateMetadata`, `sitemap.xml`, `robots.txt`, favicon/icons)
+- Production SEO architecture and rollout guide in `docs/seo/architecture.md`
 - TanStack Query + TanStack Form + Zod conventions for auth/example-entity flows
 - Storybook coverage for shared and feature components
 
@@ -121,12 +122,11 @@ app/
       login/page.tsx
       register/page.tsx
       forgot-password/page.tsx
-    (marketing)/
+    (public)/
       page.tsx
-    (content)/
-      about/page.tsx
-      blog/page.tsx
-      blog/[slug]/page.tsx
+      solutions/page.tsx
+      pricing/page.tsx
+      contact/page.tsx
     (dashboard)/
       dashboard/
         page.tsx
@@ -166,16 +166,22 @@ Copy `example.env` to `.env.local` and fill values:
 ```env
 NEXT_PUBLIC_BASE_URL=https://example.com
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3001/api
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_USE_FIREBASE_EMULATOR=true
 DATA_PROVIDER=rest
 AUTH_COOKIE_NAME=dashboard_session
 REST_API_BASE_URL=http://localhost:3001/api
-FIREBASE_API_KEY=
-FIREBASE_AUTH_DOMAIN=
-FIREBASE_PROJECT_ID=
-FIREBASE_APP_ID=
+USE_FIREBASE_EMULATOR=true
 ```
 
 `NEXT_PUBLIC_BASE_URL` is used for metadata, canonical URLs, sitemap, and robots.
+
+## SEO setup
+
+See `docs/seo/architecture.md` for canonical domain policy, public-only indexing scope, required metadata assets, and pre-launch validation checklist.
 
 ### Provider switch
 
@@ -190,10 +196,10 @@ Current status:
 ### Firebase env values
 
 When `DATA_PROVIDER=firebase`, all 4 Firebase values are required by env schema:
-- `FIREBASE_API_KEY`
-- `FIREBASE_AUTH_DOMAIN`
-- `FIREBASE_PROJECT_ID`
-- `FIREBASE_APP_ID`
+- `NEXT_PUBLIC_FIREBASE_API_KEY`
+- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+- `NEXT_PUBLIC_FIREBASE_APP_ID`
 
 You can copy them from Firebase Console → Project settings → Your apps → Web app config.
 If these are missing, env validation will fail at startup.
@@ -204,7 +210,7 @@ If backend services are unavailable, API routes return stable error codes and th
 
 ## Landing Render Mode Options
 
-Use one of these in `app/[locale]/(marketing)/page.tsx`.
+Use one of these in `app/[locale]/(public)/page.tsx`.
 
 ### Static (default)
 
@@ -236,8 +242,8 @@ The app is designed to keep feature code backend-agnostic:
   - `lib/auth/factory.ts`
   - `lib/example-entity/factory.ts`
 - Adapters:
-  - REST: `lib/auth/providers/rest.ts`, `lib/example-entity/providers/rest.ts`
-  - Firebase: `lib/auth/providers/firebase.ts`, `lib/example-entity/providers/firebase.ts`
+  - REST: `lib/auth/adapters/rest.ts`, `lib/example-entity/adapters/rest.ts`
+  - Firebase: `lib/auth/adapters/firebase.ts`, `lib/example-entity/adapters/firebase.ts`
 
 Factory behavior:
 - `DATA_PROVIDER=rest` → REST adapters
@@ -246,7 +252,7 @@ Factory behavior:
 ### How to add a new provider adapter
 
 For each domain (auth, example-entity):
-1. Implement provider methods in `lib/<domain>/providers/<provider>.ts`
+1. Implement provider methods in `lib/<domain>/adapters/<provider>.ts`
 2. Normalize responses to contract types in `lib/<domain>/types.ts`
 3. Throw domain errors from `lib/<domain>/errors.ts`
 4. Extend factory selection in `lib/<domain>/factory.ts`
@@ -329,10 +335,11 @@ This means Firebase auth is not yet configured. Follow these steps:
 3. Navigate to **Authentication → Sign-in method**
 4. Enable **Email/Password** provider
 5. Verify your `.env.local` has correct Firebase config values:
-   - `FIREBASE_API_KEY`
-   - `FIREBASE_AUTH_DOMAIN`
-   - `FIREBASE_PROJECT_ID`
-   - `FIREBASE_APP_ID`
+   - `NEXT_PUBLIC_FIREBASE_API_KEY`
+   - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+   - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+   - `NEXT_PUBLIC_FIREBASE_APP_ID`
+   - `NEXT_PUBLIC_USE_FIREBASE_EMULATOR=true` (for local emulator use)
 6. Re-run: `pnpm test:e2e:auth`
 
 Once configured correctly, the integration test will pass and validate that real Firebase auth registration and login work end-to-end.

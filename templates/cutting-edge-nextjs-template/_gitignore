@@ -49,4 +49,4 @@ firebase-debug.log
 firestore-debug.log
 *.bak
 .claude/
-docs/superpowers/
+.worktrees/
