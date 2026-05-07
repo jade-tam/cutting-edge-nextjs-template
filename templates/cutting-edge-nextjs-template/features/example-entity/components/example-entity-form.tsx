@@ -49,7 +49,7 @@ export default function ExampleEntityForm(props: ExampleEntityFormProps) {
 
   const form = useForm({
     defaultValues:
-      props.mode === "create"
+      (props.mode === "create"
         ? {
             title: "",
             body: "",
@@ -87,7 +87,7 @@ export default function ExampleEntityForm(props: ExampleEntityFormProps) {
             attachmentsUrl: props.defaultValues.attachmentsUrl ?? [],
             externalLink: props.defaultValues.externalLink ?? null,
             notes: props.defaultValues.notes ?? "",
-          },
+          }) satisfies ExampleEntityInput,
     validatorAdapter: zodValidator(),
     validators: {
       onSubmit: exampleEntitySchema,

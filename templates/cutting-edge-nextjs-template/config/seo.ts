@@ -37,6 +37,6 @@ export function buildAlternates(path = "/") {
     languages: {
       ...languages,
       "x-default": buildAbsoluteUrl(getLocalizedPath(routing.defaultLocale, path)),
-    },
+    } as Record<string, string>,
   };
 }

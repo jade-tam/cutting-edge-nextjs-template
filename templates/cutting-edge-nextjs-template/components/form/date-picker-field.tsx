@@ -49,7 +49,7 @@ export default function DatePickerField({
   const popoverStyle = { positionAnchor: anchorName } as unknown as CSSProperties;
 
   const calendarRef = useRef<(HTMLElement & { value?: string }) | null>(null);
-  const popoverRef = useRef<(HTMLElement & { hidePopover?: () => void }) | null>(null);
+  const popoverRef = useRef<HTMLDivElement | null>(null);
   const [calendarElement, setCalendarElement] = useState<HTMLElement | null>(null);
   const displayValue = formatDateForDisplay(value);
   const displayPlaceholder = placeholder ? formatDateForDisplay(placeholder) ?? placeholder : label;

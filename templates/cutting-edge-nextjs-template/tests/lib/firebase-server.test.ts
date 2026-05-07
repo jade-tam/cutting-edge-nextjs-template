@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("server-only", () => ({}), { virtual: true });
+vi.mock("server-only", () => ({}));
 
 const connectStorageEmulator = vi.fn();
 const getStorage = vi.fn(() => ({ __type: "storage" }));

@@ -5,6 +5,7 @@ export type ManagedUser = {
   email: string;
   role: ManagedUserRole;
   isActive: boolean;
+  isSelf: boolean;
   fullName?: string;
   username?: string;
 };

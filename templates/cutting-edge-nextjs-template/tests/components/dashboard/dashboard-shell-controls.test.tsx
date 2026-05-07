@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import DashboardShell from "@/features/dashboard/components/shell/DashboardShell";
+import type { UserRole } from "@/lib/auth/types";
 
 const {
   routerPushMock,
@@ -92,7 +93,7 @@ vi.mock("@/components/navigation/LocaleSwitcher", () => ({
 }));
 
 describe("DashboardShell topbar controls", () => {
-  const navItems = [
+  const navItems: Array<{ href: string; label: string; iconClass: string; requiredRole?: UserRole[] }> = [
     {
       href: "/dashboard",
       label: "dashboardShell.nav.overview",

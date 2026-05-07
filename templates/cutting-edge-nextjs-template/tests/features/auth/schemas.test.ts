@@ -7,7 +7,7 @@ import { registerSchema } from "../../../features/auth/schemas/register-schema";
 function expectIssueMessage(parsed: { success: boolean; error?: { issues: Array<{ message: string }> } }, message: string) {
   expect(parsed.success).toBe(false);
 
-  if (!parsed.success) {
+  if (!parsed.success && parsed.error) {
     expect(parsed.error.issues.map((issue) => issue.message)).toContain(message);
   }
 }

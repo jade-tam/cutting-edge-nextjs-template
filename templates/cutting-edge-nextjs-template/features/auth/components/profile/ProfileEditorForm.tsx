@@ -103,14 +103,7 @@ export default function ProfileEditorForm({
   const submissionAttempts = form.useStore((state) => state.submissionAttempts);
 
   useEffect(() => {
-    form.reset({
-      fullName: initialProfile.fullName,
-      displayName: initialProfile.displayName,
-      username: initialProfile.username,
-      pronouns: initialProfile.pronouns,
-      bio: initialProfile.bio,
-      avatarUrl: initialProfile.avatarUrl,
-    });
+    form.reset();
     setPersistedAvatarUrl(initialProfile.avatarUrl);
   }, [
     form,

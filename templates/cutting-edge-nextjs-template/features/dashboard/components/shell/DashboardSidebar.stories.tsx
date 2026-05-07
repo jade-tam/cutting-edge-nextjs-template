@@ -72,19 +72,15 @@ type Story = StoryObj<typeof meta>;
 export const AdminRole: Story = {
   args: {
     navItems,
-    userRole: "admin",
-    userName: "Admin User",
-    userEmail: "admin@example.com",
     onClose: () => undefined,
+    onLogoutClick: () => undefined,
   },
 };
 
 export const ManagerRole: Story = {
   args: {
     navItems,
-    userRole: "manager",
-    userName: "Manager User",
-    userEmail: "manager@example.com",
     onClose: () => undefined,
+    onLogoutClick: () => undefined,
   },
 };

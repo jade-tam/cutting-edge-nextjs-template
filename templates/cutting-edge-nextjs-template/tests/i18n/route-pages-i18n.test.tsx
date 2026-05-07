@@ -110,14 +110,14 @@ describe("route pages i18n content", () => {
   });
 
   it("dashboard page should render localized heading key", async () => {
-    const node = await DashboardPage({ params: Promise.resolve({ locale: "vi" }) });
+    const node = await DashboardPage();
     render(node);
 
     expect(screen.getByText("pages.dashboard.title")).toBeInTheDocument();
   });
 
   it("settings page should render localized heading key", async () => {
-    const node = await DashboardSettingsPage({ params: Promise.resolve({ locale: "vi" }) });
+    const node = await DashboardSettingsPage();
     render(node);
 
     expect(screen.getByText("pages.settings.title")).toBeInTheDocument();
@@ -132,7 +132,7 @@ describe("route pages i18n content", () => {
   });
 
   it("example entities page should render localized heading key", async () => {
-    const node = await ExampleEntitiesPage({ params: Promise.resolve({ locale: "vi" }) });
+    const node = await ExampleEntitiesPage();
     render(node);
 
     expect(screen.getByText("pages.exampleEntities.title")).toBeInTheDocument();
@@ -163,12 +163,12 @@ describe("route pages i18n content", () => {
 
     requiredKeys.forEach((key) => {
       const keys = key.split(".");
-      let enValue = enMessages;
-      let viValue = viMessages;
+      let enValue: unknown = enMessages;
+      let viValue: unknown = viMessages;
 
       keys.forEach((k) => {
-        enValue = enValue?.[k];
-        viValue = viValue?.[k];
+        enValue = (enValue as Record<string, unknown> | undefined)?.[k];
+        viValue = (viValue as Record<string, unknown> | undefined)?.[k];
       });
 
       expect(enValue, `Missing English key: ${key}`).toBeDefined();

@@ -65,7 +65,7 @@ vi.mock("@/lib/auth/hooks/use-user-profile", () => ({
 
 describe("UserProfileSection", () => {
   it("renders username, email, and avatar from query data", () => {
-    render(<UserProfileSection onLogout={vi.fn()} />);
+    render(<UserProfileSection onLogout={vi.fn()} onClose={vi.fn()} />);
 
     expect(screen.getByText("manager01")).toBeInTheDocument();
     expect(screen.getByText("manager@example.com")).toBeInTheDocument();
