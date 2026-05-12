@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/jade-tam/cutting-edge-nextjs-template/compare/v1.3.0...v1.4.0) (2026-05-12)
+
+
+### Features
+
+* **cli:** show install progress, version and template description ([27af198](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/27af198b12f06247db9688d6780103a66af60f01))
+* **cli:** show install progress, version and template description ([5ccc8da](https://github.com/jade-tam/cutting-edge-nextjs-template/commit/5ccc8daec499cc455d70e367b1fecbeeed020856))
+
 ## [1.3.0](https://github.com/jade-tam/cutting-edge-nextjs-template/compare/v1.2.0...v1.3.0) (2026-05-07)
 
 
