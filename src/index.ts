@@ -1,11 +1,33 @@
 import * as p from '@clack/prompts';
 import kleur from 'kleur';
-import { spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
+import { createRequire } from 'node:module';
 import { cp, rename, readFile, writeFile, access, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+const packageJson = require('../package.json') as { version: string };
+
+function runInstall(pkgManager: PackageManager, cwd: string): Promise<number | null> {
+  return new Promise((resolve, reject) => {
+    const child = process.platform === 'win32'
+      ? spawn(`${pkgManager} install`, {
+          cwd,
+          stdio: 'ignore',
+          shell: true,
+        })
+      : spawn(pkgManager, ['install'], {
+          cwd,
+          stdio: 'ignore',
+          shell: false,
+        });
+
+    child.on('error', reject);
+    child.on('close', (code) => resolve(code));
+  });
+}
 
 async function exists(p: string): Promise<boolean> {
   try {
@@ -38,7 +60,9 @@ async function main() {
   const argProjectName = process.argv[2];
 
   console.log();
-  p.intro(kleur.bgCyan().black(" create-cutting-edge-nextjs-app "));
+  p.intro(
+    `${kleur.bgCyan().black(' create-cutting-edge-nextjs-app ')} ${kleur.dim(`v${packageJson.version}`)}\n${kleur.dim('A modern Next.js 16 starter with handpicked libraries, AI-ready project structure, and real-world patterns for marketing pages, content routes, and CSR dashboards.')}`
+  );
 
   // Project name
   let projectName: string;
@@ -120,13 +144,9 @@ async function main() {
 
   // Install dependencies
   const installSpinner = p.spinner();
-  installSpinner.start(`Installing dependencies with ${pkgManager}...`);
-  const result = spawnSync(pkgManager, ['install'], {
-    cwd: targetDir,
-    stdio: 'pipe',
-    shell: true,
-  });
-  if (result.status !== 0) {
+  installSpinner.start(`Installing dependencies with ${pkgManager} (this can take a minute)...`);
+  const installExitCode = await runInstall(pkgManager, targetDir);
+  if (installExitCode !== 0) {
     installSpinner.stop(
       kleur.yellow(`Dependency installation failed. Run \`${pkgManager} install\` manually.`)
     );
