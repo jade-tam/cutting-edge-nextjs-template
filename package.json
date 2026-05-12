@@ -27,6 +27,7 @@
   "devDependencies": {
     "@types/node": "^22",
     "tsdown": "^0.20.3",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.2"
   },
   "engines": {
